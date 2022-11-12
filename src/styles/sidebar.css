@@ -1,0 +1,28 @@
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  flex-shrink: 0;
+  background-color: rgb(42, 42, 46);
+  color: wheat;
+}
+h1 {
+  font-size: 20px !important;
+}
+.tabs {
+  display: flex;
+  flex-direction: column;
+  color: rgb(225, 225, 225);
+}
+
+.tabs h3 {
+  text-align: left;
+  font-size: 20px;
+  padding-left: 50px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+}
+.tabs h3:hover {
+  background-color: rgb(7, 7, 7);
+  cursor: pointer;
+}

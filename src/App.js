@@ -1,10 +1,12 @@
-import Button from 'react-bootstrap/Button';
 import './App.css';
+import Sidebar from './components/sidebar';
+import MainContent from './components/maincontent';
 
 function App() {
   return (
     <div className="App">
-      <Button variant="primary">Primary</Button>{' '}
+      <Sidebar />
+      <MainContent />
     </div>
   );
 }
