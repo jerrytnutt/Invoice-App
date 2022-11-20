@@ -1,0 +1,12 @@
+.fourm {
+  position: absolute;
+  border: 5px groove silver;
+  padding: 20px;
+  background-color: rgb(245, 245, 245);
+  width: 50%;
+  height: 400px;
+  top: 40%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}

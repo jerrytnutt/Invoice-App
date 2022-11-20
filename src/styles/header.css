@@ -1,5 +1,9 @@
 header {
-  font-size: 2rem;
   background-color: rgb(125, 123, 123);
-  color: white;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.buttonContainer {
+  background-color: red;
+  padding: 5px;
 }
