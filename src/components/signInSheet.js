@@ -1,14 +1,13 @@
+import '../styles/signInSheet.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import { auth, createUser, signInUser } from '../fireData/firebase-config';
-import './signInSheet.css';
 
-function BasicExample(props) {
+function SignInSheet(props) {
   const [logIn, setlogIn] = useState(true);
 
   const createNewAccount = (email, password) => {
-    console.log(email, password);
     createUser(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -17,13 +16,11 @@ function BasicExample(props) {
         // ...
       })
       .catch((error) => {
-        // const errorCode = error.code;
-        //const errorMessage = error.message;
         console.log(error);
         // ..
       });
   };
-  const signIn = (email, password) => {
+  const signInExistingAccount = (email, password) => {
     signInUser(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -37,12 +34,16 @@ function BasicExample(props) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (logIn === true) {
-      return signIn(event.target[0].value, event.target[1].value);
+    props.setshowSignIn(false);
+    if (logIn) {
+      return signInExistingAccount(
+        event.target[0].value,
+        event.target[1].value
+      );
     }
     return createNewAccount(event.target[0].value, event.target[2].value);
   };
-  const Username = () => {
+  const UsernameInput = () => {
     let content = (
       <Form.Group className="mb-3" controlId="formBasicuserName">
         <Form.Label>Username</Form.Label>
@@ -70,7 +71,7 @@ function BasicExample(props) {
         </Form.Text>
       </Form.Group>
 
-      {logIn ? null : <Username />}
+      {logIn ? null : <UsernameInput />}
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
@@ -94,7 +95,7 @@ function BasicExample(props) {
       </Button>
       <Button
         onClick={() => {
-          props.setShowResults(false);
+          props.setshowSignIn(false);
         }}
       >
         x
@@ -103,4 +104,4 @@ function BasicExample(props) {
   );
 }
 
-export default BasicExample;
+export default SignInSheet;

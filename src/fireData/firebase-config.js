@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 
 import {
   getAuth,
@@ -32,5 +32,5 @@ export const createUser = createUserWithEmailAndPassword;
 export const signInUser = signInWithEmailAndPassword;
 export const signOutUser = signOut;
 
-export const firestoreCollection = collection;
-export const firestoreDocs = getDocs;
+//export const firestoreCollection = collection;
+//export const firestoreDocs = getDocs;

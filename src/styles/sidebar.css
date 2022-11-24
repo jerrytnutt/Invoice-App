@@ -1,12 +1,17 @@
-.sidebar {
+.sidebarVisible {
   width: 250px;
-  height: 100vh;
-  flex-shrink: 0;
   background-color: rgb(42, 42, 46);
+  transition: all 0.5s;
   color: wheat;
 }
+.sidebarHidden {
+  transition: all 0.5s;
+  overflow: hidden;
+  width: 0;
+  transform: translateX(-100%);
+}
 h1 {
-  font-size: 20px !important;
+  font-size: 1em !important;
 }
 .tabs {
   display: flex;

@@ -1,16 +1,29 @@
 import '../styles/sidebar.css';
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { useDispatch } from 'react-redux';
+import { sidebarVisibility } from '../features/sidebarvisibility';
 
 function Sidebar() {
-  const [page, setPage] = useState('One');
+  const visibility = useSelector((state) => state.sidebarvisibility.value);
+  const dispatch = useDispatch();
+  console.log(visibility);
   const handleClick = () => {
-    if (page === 'one') {
-      return setPage('two');
-    }
-    return setPage('one');
+    // if (sidebarb) {
+    dispatch(sidebarVisibility.setsidebarData('sidebarHidden'));
+    //  return document
+    //   .querySelector('#change-class')
+    //  .classList.add('sidebarHidden');
+    //}
+    // console.log('its false');
+    // dispatch(sidebarVisibility.setsidebarData(true));
+    // return document
+    //  .querySelector('#change-class')
+    //  .classList.remove('sidebarHidden');
   };
+
   return (
-    <div className="sidebar">
+    <div className={visibility} id="change-class">
       <div className="logo">
         <h1>Logo</h1>
       </div>
@@ -18,11 +31,6 @@ function Sidebar() {
         <h3 onClick={handleClick} href="#home">
           One
         </h3>
-        <h3 onClick={handleClick} href="#features">
-          Two
-        </h3>
-        <h3 href="#pricing">Three</h3>
-        <h3 href="#pricing">{page}</h3>
       </div>
     </div>
   );
