@@ -5,10 +5,18 @@
   color: wheat;
 }
 .sidebarHidden {
-  transition: all 0.5s;
+  transition: all 1s;
   overflow: hidden;
   width: 0;
   transform: translateX(-100%);
+}
+.sidebarMobile {
+  min-width: 250px;
+  flex-grow: 1;
+  background-color: green;
+}
+.mobileHidden {
+  display: none;
 }
 h1 {
   font-size: 1em !important;
