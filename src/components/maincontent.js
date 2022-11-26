@@ -1,10 +1,11 @@
 import '../styles/main.css';
 import Header from './header';
 import Invoices from './invoices';
-import { useEffect } from 'react';
 
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { userDataChange } from '../features/reducers';
+import { userDataChange } from '../features/userDataReducer';
+import { invoiceList } from '../features/invoicelist';
 
 import { db, auth, onAuth } from '../fireData/firebase-config';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -15,29 +16,64 @@ function MainContent() {
   useEffect(() => {
     onAuth(auth, (user) => {
       if (user) {
-        // console.log('There is a user', user.uid);
-
-        const setUpNewUser = async () => {
+        const getDataForUser = async () => {
           const docRef = doc(db, 'users', user.uid);
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
-            const userData = docSnap.data();
-            dispatch(userDataChange.setUserData(userData));
+            dispatch(
+              invoiceList.setinvoiceData({
+                Invoices: [
+                  {
+                    billto: { name: 'john', address: '12345northstreet' },
+                    invoicenumber: 100,
+                  },
+                  {
+                    billto: { name: 'mike', address: '12345northstreet' },
+                    invoicenumber: 200,
+                  },
+                ],
+              })
+            );
+
+            dispatch(userDataChange.setUserData({ name: 'john' }));
           } else {
-            // doc.data() will be undefined in this case
             console.log('new user being created');
             await setDoc(doc(db, 'users', user.uid), {
-              name: 'Los Angeles',
-              age: 55,
+              Invoices: [
+                {
+                  billto: { name: 'john', address: '12345northstreet' },
+                  invoicenumber: 100,
+                },
+                {
+                  billto: { name: 'mike', address: '12345northstreet' },
+                  invoicenumber: 200,
+                },
+              ],
+              userInformation: { name: 'jake', age: 50 },
             });
-            dispatch(userDataChange.setUserData({ name: 'tom', age: 89 }));
+            //
+
+            dispatch(
+              invoiceList.setinvoiceData({
+                Invoices: [
+                  {
+                    billto: { name: 'john', address: '12345northstreet' },
+                    invoicenumber: 100,
+                  },
+                  {
+                    billto: { name: 'mike', address: '12345northstreet' },
+                    invoicenumber: 200,
+                  },
+                ],
+              })
+            );
           }
         };
 
-        return setUpNewUser();
+        return getDataForUser();
       } else {
-        dispatch(userDataChange.setUserData({ name: '', age: 0 }));
+        dispatch(userDataChange.setUserData({ name: false, age: 50 }));
       }
     });
   }, [dispatch]);

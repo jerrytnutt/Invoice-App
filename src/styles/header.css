@@ -2,8 +2,22 @@ header {
   background-color: rgb(125, 123, 123);
   display: flex;
   flex-direction: row-reverse;
+  justify-content: space-between;
 }
-.buttonContainer {
-  background-color: red;
+.headerButtons {
   padding: 5px;
+}
+.headerButtons button {
+  font-weight: 600;
+  border-radius: 15px;
+  padding: 15px;
+  border: 0;
+  color: white;
+  background-color: rgb(107, 80, 129);
+}
+.sideBarButton {
+  font-size: 2rem;
+  background-color: rgb(143, 134, 134);
+  border-radius: 20px;
+  border: 0;
 }

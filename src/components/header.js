@@ -1,34 +1,29 @@
 import '../styles/header.css';
-import SignInSheet from './signInSheet';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import SignInInput from './signInInput';
 import { sidebarVisibility } from '../features/sidebarvisibility';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { auth, signOutUser } from '../fireData/firebase-config';
 
 function Header() {
-  const [showSignIn, setshowSignIn] = useState(false);
-  const userAge = useSelector((state) => state.cost.value.age);
+  const [showSignInInput, setshowSignInInput] = useState(false);
+  // come back to this
+  const userName = useSelector((state) => state.userData.value.name);
+  console.log(userName);
+  //////////////////////////////////
   const dispatch = useDispatch();
 
-  const handleClick = () => {
-    setshowSignIn(true);
-  };
-
-  const signOut = () => {
-    signOutUser(auth)
-      .then(() => {
-        // Sign-out successful.
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
   const LogOutButton = () => {
     let content = (
       <button
         onClick={() => {
-          signOut();
+          signOutUser(auth)
+            .then(() => {
+              // Sign-out successful.
+            })
+            .catch((error) => {
+              // An error happened.
+            });
         }}
       >
         Log Out
@@ -38,22 +33,31 @@ function Header() {
   };
   return (
     <header>
-      <button
-        onClick={() => {
-          dispatch(sidebarVisibility.setsidebarData('sidebarVisible'));
-        }}
-      >
-        side bar
-      </button>
-      <div className="buttonContainer">
-        {userAge === 0 ? (
-          <button onClick={handleClick}>Sign Up</button>
+      <div className="headerButtons">
+        {!userName ? (
+          <button
+            onClick={() => {
+              setshowSignInInput(true);
+            }}
+          >
+            Sign Up
+          </button>
         ) : (
           <LogOutButton />
         )}
       </div>
+      <button
+        className="sideBarButton"
+        onClick={() => {
+          dispatch(sidebarVisibility.setsidebarData('sidebarVisible'));
+        }}
+      >
+        {'>'}
+      </button>
 
-      {showSignIn ? <SignInSheet setshowSignIn={setshowSignIn} /> : null}
+      {showSignInInput ? (
+        <SignInInput setshowSignInInput={setshowSignInInput} />
+      ) : null}
     </header>
   );
 }

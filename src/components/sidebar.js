@@ -8,13 +8,11 @@ function Sidebar() {
   //const [isMobile, setIsMobile] = useState(false);
   const visibility = useSelector((state) => state.sidebarvisibility.value);
   const dispatch = useDispatch();
-  //console.log(visibility);
+  console.log(visibility);
   const handleClick = () => {
     if (window.innerWidth < 720) {
-      console.log('small');
       dispatch(sidebarVisibility.setsidebarData('mobileHidden'));
     } else {
-      console.log('large');
       dispatch(sidebarVisibility.setsidebarData('sidebarHidden'));
     }
   };
@@ -27,9 +25,13 @@ function Sidebar() {
         } else {
           dispatch(sidebarVisibility.setsidebarData('sidebarVisible'));
         }
-      } else if (visibility === 'sidebarHidden' && window.innerWidth < 720) {
-        dispatch(sidebarVisibility.setsidebarData('sidebarMobile'));
-      }
+      } else if (
+        visibility === 'sidebarHidden' ||
+        visibility === 'mobileHidden'
+      )
+        if (window.innerWidth < 720) {
+          dispatch(sidebarVisibility.setsidebarData('mobileHidden'));
+        }
     }
     window.addEventListener('resize', updateSize);
     updateSize();

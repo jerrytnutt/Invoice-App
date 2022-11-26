@@ -1,19 +1,21 @@
 import '../styles/signInSheet.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useDispatch } from 'react-redux';
+import { userDataChange } from '../features/userDataReducer';
 import { useState } from 'react';
 import { auth, createUser, signInUser } from '../fireData/firebase-config';
 
-function SignInSheet(props) {
-  const [logIn, setlogIn] = useState(true);
-
-  const createNewAccount = (email, password) => {
+function SignInInput(props) {
+  const [returningUser, setreturningUser] = useState(true);
+  const dispatch = useDispatch();
+  const createNewAccount = (username, email, password) => {
+    console.log(username, email, password);
     createUser(auth, email, password)
       .then((userCredential) => {
         // Signed in
-
         console.log(userCredential.user);
-        // ...
+        dispatch(userDataChange.setUserData({ name: username, age: 25 }));
       })
       .catch((error) => {
         console.log(error);
@@ -21,6 +23,7 @@ function SignInSheet(props) {
       });
   };
   const signInExistingAccount = (email, password) => {
+    console.log(email, password);
     signInUser(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -34,14 +37,18 @@ function SignInSheet(props) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.setshowSignIn(false);
-    if (logIn) {
+    let username = event.target[0].value;
+    let email = event.target[1].value;
+    let password = event.target[2].value;
+
+    props.setshowSignInInput(false);
+    if (returningUser) {
       return signInExistingAccount(
         event.target[0].value,
         event.target[1].value
       );
     }
-    return createNewAccount(event.target[0].value, event.target[2].value);
+    return createNewAccount(username, email, password);
   };
   const UsernameInput = () => {
     let content = (
@@ -59,6 +66,7 @@ function SignInSheet(props) {
 
   return (
     <Form className="fourm" onSubmit={handleSubmit}>
+      {returningUser ? null : <UsernameInput />}
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control
@@ -71,8 +79,6 @@ function SignInSheet(props) {
         </Form.Text>
       </Form.Group>
 
-      {logIn ? null : <UsernameInput />}
-
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
@@ -83,8 +89,9 @@ function SignInSheet(props) {
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Label
+          className="newUserButton"
           onClick={() => {
-            return setlogIn(false);
+            return setreturningUser(false);
           }}
         >
           New User?
@@ -95,7 +102,7 @@ function SignInSheet(props) {
       </Button>
       <Button
         onClick={() => {
-          props.setshowSignIn(false);
+          props.setshowSignInInput(false);
         }}
       >
         x
@@ -104,4 +111,4 @@ function SignInSheet(props) {
   );
 }
 
-export default SignInSheet;
+export default SignInInput;
