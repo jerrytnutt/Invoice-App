@@ -8,7 +8,7 @@ function Sidebar() {
   //const [isMobile, setIsMobile] = useState(false);
   const visibility = useSelector((state) => state.sidebarvisibility.value);
   const dispatch = useDispatch();
-  console.log(visibility);
+  //console.log(visibility);
   const handleClick = () => {
     if (window.innerWidth < 720) {
       dispatch(sidebarVisibility.setsidebarData('mobileHidden'));

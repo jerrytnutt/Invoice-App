@@ -1,23 +1,23 @@
 import '../styles/invoices.css';
 import { useState } from 'react';
-//import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 //import { useDispatch } from 'react-redux';
 import FilterDropDown from './filterdropdown';
 import InvoiceGridTemplate from './InvoiceGridTemplate';
 import CompletedinvoicePage from './CompletedInvoice';
 function Invoices() {
-  //const userInvoices = useSelector((state) => state.invoiceList.value);
-  //console.log(userInvoices.Invoices);
+  const invoiceList = useSelector((state) => state.invoiceList.value);
+  console.log(invoiceList);
   const [showinvoicePage, setshowinvoicePage] = useState(false);
   const [newInvoiceTemplate, setnewInvoiveTemplate] = useState(false);
 
-  //const handleClick = (event) => {
-  //  event.preventDefault();
-  // let obj = event.target.getAttribute('data');
-  // console.log(JSON.parse(obj));
-  // setshowinvoicePage(true);
-  //};
+  const handleClick = (event) => {
+    //  event.preventDefault();
+    // let obj = event.target.getAttribute('data');
+    // console.log(JSON.parse(obj));
+    // setshowinvoicePage(true);
+  };
   ///
   const openBlankInvoice = () => {
     setnewInvoiveTemplate(true);
@@ -26,19 +26,19 @@ function Invoices() {
   ///
   //let arr = { 100: { name: 'tom' }, 200: { name: 'mike' } };
   const CreateInvoiceList = () => {
-    // let content = userInvoices.map((element, index) => {
-    //let nameOf = value.billto.name;
-    // console.log(userInvoices[key]);
-    // let name = JSON.stringify(arr[index]);
-    // return (
-    // <div key={index}>
-    // <div className="name"></div>
-    //  <button data={2} onClick={handleClick}></button>
-    //  </div>
-    //  );
-    // });
-    // return <div>{content}</div>;};
+    let content = invoiceList.map((element, index) => {
+      let name = element.billto.name;
+
+      return (
+        <div key={index}>
+          <div className="name">{name}</div>
+          <button data={2} onClick={handleClick}></button>
+        </div>
+      );
+    });
+    return <div>{content}</div>;
   };
+
   if (newInvoiceTemplate) {
     return (
       <div className="invoiceContainer">

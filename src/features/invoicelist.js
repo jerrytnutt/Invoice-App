@@ -1,17 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-let initialStateValue = {
-  Invoices: [
-    {
-      billto: { name: 'john', address: '12345northstreet' },
-      invoicenumber: 100,
-    },
-    {
-      billto: { name: 'mike', address: '12345northstreet' },
-      invoicenumber: 200,
-    },
-  ],
-};
+let initialStateValue = [
+  {
+    billto: { name: 't1', address: '12345northstreet' },
+    invoicenumber: 100,
+  },
+  {
+    billto: { name: 't2', address: '12345northstreet' },
+    invoicenumber: 200,
+  },
+];
 
 const invoiceSlice = createSlice({
   name: 'invoiceList',
@@ -19,6 +17,9 @@ const invoiceSlice = createSlice({
   reducers: {
     setinvoiceData: (state, action) => {
       state.value = action.payload;
+    },
+    resetData: (state, action) => {
+      state.value = initialStateValue;
     },
   },
 });

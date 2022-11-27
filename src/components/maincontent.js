@@ -21,24 +21,12 @@ function MainContent() {
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
-            dispatch(
-              invoiceList.setinvoiceData({
-                Invoices: [
-                  {
-                    billto: { name: 'john', address: '12345northstreet' },
-                    invoicenumber: 100,
-                  },
-                  {
-                    billto: { name: 'mike', address: '12345northstreet' },
-                    invoicenumber: 200,
-                  },
-                ],
-              })
-            );
+            dispatch(invoiceList.setinvoiceData(docSnap.data().Invoices));
 
-            dispatch(userDataChange.setUserData({ name: 'john' }));
+            dispatch(userDataChange.setUserData(docSnap.data().userData));
           } else {
             console.log('new user being created');
+
             await setDoc(doc(db, 'users', user.uid), {
               Invoices: [
                 {
@@ -50,10 +38,10 @@ function MainContent() {
                   invoicenumber: 200,
                 },
               ],
-              userInformation: { name: 'jake', age: 50 },
+              userData: { name: 'jake', age: 50 },
             });
             //
-
+            // can be changed to empty later
             dispatch(
               invoiceList.setinvoiceData({
                 Invoices: [
@@ -73,6 +61,7 @@ function MainContent() {
 
         return getDataForUser();
       } else {
+        dispatch(invoiceList.resetData());
         dispatch(userDataChange.setUserData({ name: false, age: 50 }));
       }
     });
