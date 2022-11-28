@@ -3,6 +3,7 @@ import Header from './header';
 import Invoices from './invoices';
 
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { userDataChange } from '../features/userDataReducer';
 import { invoiceList } from '../features/invoicelist';
@@ -13,6 +14,19 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 function MainContent() {
   const dispatch = useDispatch();
 
+  const mainContentComponent = useSelector(
+    (state) => state.mainPageContent.value
+  );
+
+  const renderSwitch = (parm) => {
+    switch (parm) {
+      case 'two':
+        return <div>two</div>;
+      default:
+        return <Invoices />;
+    }
+  };
+
   useEffect(() => {
     onAuth(auth, (user) => {
       if (user) {
@@ -22,11 +36,8 @@ function MainContent() {
 
           if (docSnap.exists()) {
             dispatch(invoiceList.setinvoiceData(docSnap.data().Invoices));
-
             dispatch(userDataChange.setUserData(docSnap.data().userData));
           } else {
-            console.log('new user being created');
-
             await setDoc(doc(db, 'users', user.uid), {
               Invoices: [
                 {
@@ -40,29 +51,16 @@ function MainContent() {
               ],
               userData: { name: 'jake', age: 50 },
             });
-            //
+
             // can be changed to empty later
-            dispatch(
-              invoiceList.setinvoiceData({
-                Invoices: [
-                  {
-                    billto: { name: 'john', address: '12345northstreet' },
-                    invoicenumber: 100,
-                  },
-                  {
-                    billto: { name: 'mike', address: '12345northstreet' },
-                    invoicenumber: 200,
-                  },
-                ],
-              })
-            );
+            dispatch(invoiceList.setinvoiceData([]));
           }
         };
 
         return getDataForUser();
       } else {
         dispatch(invoiceList.resetData());
-        dispatch(userDataChange.setUserData({ name: false, age: 50 }));
+        dispatch(userDataChange.resetUserData());
       }
     });
   }, [dispatch]);
@@ -70,7 +68,8 @@ function MainContent() {
   return (
     <div className="main">
       <Header />
-      <Invoices />
+
+      {renderSwitch(mainContentComponent)}
     </div>
   );
 }

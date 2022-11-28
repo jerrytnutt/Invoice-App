@@ -1,14 +1,14 @@
 import '../styles/sidebar.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useLayoutEffect } from 'react';
-import { useDispatch } from 'react-redux';
+
 import { sidebarVisibility } from '../features/sidebarvisibility';
+import { mainPageContent } from '../features/mainpagecontent';
 
 function Sidebar() {
-  //const [isMobile, setIsMobile] = useState(false);
   const visibility = useSelector((state) => state.sidebarvisibility.value);
   const dispatch = useDispatch();
-  //console.log(visibility);
+
   const handleClick = () => {
     if (window.innerWidth < 720) {
       dispatch(sidebarVisibility.setsidebarData('mobileHidden'));
@@ -38,7 +38,6 @@ function Sidebar() {
     return () => window.removeEventListener('resize', updateSize);
   }, [visibility, dispatch]);
 
-  ///
   return (
     <div className={visibility} id="change-class">
       <div className="logo">
@@ -46,7 +45,23 @@ function Sidebar() {
       </div>
       <div className="tabs">
         <h3 onClick={handleClick} href="#home">
+          close
+        </h3>
+        <h3
+          onClick={() => {
+            dispatch(mainPageContent.setmainPageContent('one'));
+          }}
+          href="#home"
+        >
           One
+        </h3>
+        <h3
+          onClick={() => {
+            dispatch(mainPageContent.setmainPageContent('two'));
+          }}
+          href="#home"
+        >
+          Two
         </h3>
       </div>
     </div>

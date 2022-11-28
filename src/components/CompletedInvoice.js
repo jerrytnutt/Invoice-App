@@ -1,12 +1,13 @@
 import '../styles/invoices.css';
 
 function CompletedInvoice(props) {
+  console.log(props);
   return (
     <div>
-      Create New Invoice
+      Edit
       <button
         onClick={() => {
-          return props.setCompletedInvoice(false);
+          props.setinvoicePageType(false);
         }}
       ></button>
     </div>

@@ -7,10 +7,9 @@ import { auth, signOutUser } from '../fireData/firebase-config';
 
 function Header() {
   const [showSignInInput, setshowSignInInput] = useState(false);
-  // come back to this
-  const userName = useSelector((state) => state.userData.value.name);
-  console.log(userName);
-  //////////////////////////////////
+
+  const userName = useSelector((state) => state.userData.value.userName);
+
   const dispatch = useDispatch();
 
   const LogOutButton = () => {

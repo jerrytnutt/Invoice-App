@@ -3,19 +3,31 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import '../styles/invoiceGridTemplate.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { invoiceList } from '../features/invoicelist';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../fireData/firebase-config';
 
 function InvoiceGridTemplate() {
+  const dispatch = useDispatch();
+
+  const invoice = useSelector((state) => state.invoiceList.value);
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(event.target);
-    const dataRef = doc(db, 'users', 'Vo9cwtKYFtQCrFTtA57X79Bt3vE3');
+    const newValue = {
+      billto: { name: 'new name', address: 'new place' },
+      invoicenumber: 4,
+    };
+    console.log(invoice);
+    let newInvoice = invoice.concat([newValue]);
+    console.log(newInvoice);
+    const dataRef = doc(db, 'users', 'uid');
 
-    // Set the "capital" field of the city 'DC'
     await updateDoc(dataRef, {
-      age: 100,
+      Invoices: newInvoice,
     });
+    dispatch(invoiceList.setinvoiceData(newInvoice));
   };
   return (
     <Form className="gridForm" onSubmit={handleSubmit}>
