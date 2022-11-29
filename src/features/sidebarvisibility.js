@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 let initialStateValue = 'sidebarVisible';
 
 const sidebarSlice = createSlice({
-  name: 'sidebarVisible',
+  name: 'sidebarVisibility',
   initialState: { value: initialStateValue },
   reducers: {
     setsidebarData: (state, action) => {

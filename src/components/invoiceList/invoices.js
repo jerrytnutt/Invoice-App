@@ -1,4 +1,4 @@
-import '../styles/invoices.css';
+import '../../styles/invoices.css';
 import { useState } from 'react';
 
 import FilterDropDown from './filterdropdown';
@@ -6,8 +6,6 @@ import InvoiceGridTemplate from './InvoiceGridTemplate';
 import CompletedinvoicePage from './completedInvoice';
 import DarkInvoiceTable from './darkinvoicetable';
 function Invoices() {
-  //const [showinvoicePage, setshowinvoicePage] = useState(false);
-  //const [newInvoiceTemplate, setnewInvoiveTemplate] = useState(false);
   const [invoicePageType, setinvoicePageType] = useState({
     type: null,
     data: {},
@@ -21,7 +19,7 @@ function Invoices() {
   if (invoicePageType.type === 'New') {
     return (
       <div className="invoiceContainer">
-        <InvoiceGridTemplate />
+        <InvoiceGridTemplate setinvoicePageType={setinvoicePageType} />
       </div>
     );
   }
@@ -44,7 +42,10 @@ function Invoices() {
           <button
             className="newButton"
             onClick={() => {
-              setinvoicePageType('New');
+              setinvoicePageType({
+                type: 'New',
+                data: {},
+              });
             }}
           >
             New Invoice Button

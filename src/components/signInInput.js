@@ -2,20 +2,25 @@ import '../styles/signInSheet.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
-import { userDataChange } from '../features/userDataReducer';
+import { userDataActions } from '../features/userDataReducer';
 import { useState } from 'react';
 import { auth, createUser, signInUser } from '../fireData/firebase-config';
 
 function SignInInput(props) {
   const [returningUser, setreturningUser] = useState(true);
   const dispatch = useDispatch();
+
   const createNewAccount = (username, email, password) => {
-    console.log(username, email, password);
     createUser(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        console.log(userCredential.user);
-        dispatch(userDataChange.setUserData({ name: username, age: 25 }));
+        console.log(userCredential.user.uid);
+        dispatch(
+          userDataActions.setUserData({
+            userName: username,
+            userID: userCredential.user.uid,
+          })
+        );
       })
       .catch((error) => {
         console.log(error);
@@ -27,7 +32,7 @@ function SignInInput(props) {
     signInUser(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        // const user = userCredential.user;
+
         console.log(userCredential);
         // ...
       })

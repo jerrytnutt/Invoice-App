@@ -1,11 +1,11 @@
 import '../styles/main.css';
 import Header from './header';
-import Invoices from './invoices';
+import Invoices from './invoiceList/invoices';
 
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { userDataChange } from '../features/userDataReducer';
+import { userDataActions } from '../features/userDataReducer';
 import { invoiceList } from '../features/invoicelist';
 
 import { db, auth, onAuth } from '../fireData/firebase-config';
@@ -36,7 +36,7 @@ function MainContent() {
 
           if (docSnap.exists()) {
             dispatch(invoiceList.setinvoiceData(docSnap.data().Invoices));
-            dispatch(userDataChange.setUserData(docSnap.data().userData));
+            dispatch(userDataActions.setUserData(docSnap.data().userData));
           } else {
             await setDoc(doc(db, 'users', user.uid), {
               Invoices: [
@@ -49,7 +49,7 @@ function MainContent() {
                   invoicenumber: 200,
                 },
               ],
-              userData: { name: 'jake', age: 50 },
+              userData: { userName: 'jake', userID: user.uid },
             });
 
             // can be changed to empty later
@@ -60,7 +60,7 @@ function MainContent() {
         return getDataForUser();
       } else {
         dispatch(invoiceList.resetData());
-        dispatch(userDataChange.resetUserData());
+        dispatch(userDataActions.resetUserData());
       }
     });
   }, [dispatch]);

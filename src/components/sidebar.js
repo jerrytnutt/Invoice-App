@@ -44,16 +44,13 @@ function Sidebar() {
         <h1>Logo</h1>
       </div>
       <div className="tabs">
-        <h3 onClick={handleClick} href="#home">
-          close
-        </h3>
+        <h3 onClick={handleClick}>{'<'}</h3>
         <h3
           onClick={() => {
             dispatch(mainPageContent.setmainPageContent('one'));
           }}
-          href="#home"
         >
-          One
+          Invoice
         </h3>
         <h3
           onClick={() => {
@@ -61,7 +58,7 @@ function Sidebar() {
           }}
           href="#home"
         >
-          Two
+          Other
         </h3>
       </div>
     </div>

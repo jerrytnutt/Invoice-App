@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 let initialStateValue = 'one';
 
 const mainPageContentSlice = createSlice({
-  name: 'Main Page Content',
+  name: 'mainPageContent',
   initialState: { value: initialStateValue },
   reducers: {
     setmainPageContent: (state, action) => {

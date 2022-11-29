@@ -1,4 +1,4 @@
-import '../styles/invoices.css';
+import '../../styles/invoices.css';
 
 function CompletedInvoice(props) {
   console.log(props);
