@@ -14,6 +14,7 @@ function DarkInvoiceTable(props) {
     let content = invoiceList.map((element, index) => {
       let name = element.billto.name;
       let data = JSON.stringify(element);
+      // console.log(element);
 
       return (
         <tr key={index}>

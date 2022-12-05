@@ -1,18 +1,33 @@
 .fourm {
   z-index: 1;
   position: absolute;
-  border: 5px groove silver;
-  padding: 20px;
-  background-color: rgb(245, 245, 245);
   width: 50%;
   top: 40%;
   left: 55%;
   margin-right: -50%;
+  border: 5px groove silver;
+  padding: 25px;
+  background-color: rgb(245, 245, 245);
   transform: translate(-50%, -50%);
 }
-.newUserButton {
-  padding: 5px;
-  border: 1px solid black;
-  background-color: white;
+.mb-3 {
+  color: black;
+}
+.fourm input {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.closeButton {
+  float: right;
+  font-size: 2rem;
+  color: grey;
+  background-color: rgb(245, 245, 245);
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 0;
+}
+.closeButton:hover {
+  color: black;
   cursor: pointer;
 }

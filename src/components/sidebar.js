@@ -1,4 +1,6 @@
 import '../styles/sidebar.css';
+import { BsFillArrowLeftSquareFill } from 'react-icons/bs';
+import { MdDashboard } from 'react-icons/md';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLayoutEffect } from 'react';
 
@@ -19,12 +21,11 @@ function Sidebar() {
 
   useLayoutEffect(() => {
     function updateSize() {
-      if (visibility === 'sidebarVisible' || visibility === 'sidebarMobile') {
+      if (visibility === 'sidebarVisible' || visibility === 'mobileVisible') {
         if (window.innerWidth < 720) {
-          dispatch(sidebarVisibility.setsidebarData('sidebarMobile'));
-        } else {
-          dispatch(sidebarVisibility.setsidebarData('sidebarVisible'));
+          return dispatch(sidebarVisibility.setsidebarData('mobileVisible'));
         }
+        return dispatch(sidebarVisibility.setsidebarData('sidebarVisible'));
       } else if (
         visibility === 'sidebarHidden' ||
         visibility === 'mobileHidden'
@@ -39,27 +40,40 @@ function Sidebar() {
   }, [visibility, dispatch]);
 
   return (
-    <div className={visibility} id="change-class">
-      <div className="logo">
-        <h1>Logo</h1>
+    <div className={visibility}>
+      <div className="closeIcon" onClick={handleClick}>
+        <BsFillArrowLeftSquareFill />
       </div>
-      <div className="tabs">
-        <h3 onClick={handleClick}>{'<'}</h3>
-        <h3
-          onClick={() => {
-            dispatch(mainPageContent.setmainPageContent('one'));
-          }}
-        >
-          Invoice
-        </h3>
-        <h3
-          onClick={() => {
-            dispatch(mainPageContent.setmainPageContent('two'));
-          }}
-          href="#home"
-        >
-          Other
-        </h3>
+
+      <div className="tabContainer">
+        <div>
+          <h3
+            onClick={() => {
+              dispatch(mainPageContent.setmainPageContent('dashboard'));
+            }}
+          >
+            Dashboard <MdDashboard />
+          </h3>
+        </div>
+        <div>
+          <h3
+            onClick={() => {
+              dispatch(mainPageContent.setmainPageContent('invoice'));
+            }}
+          >
+            Invoice <MdDashboard />
+          </h3>
+        </div>
+        <div>
+          <h3
+            onClick={() => {
+              dispatch(mainPageContent.setmainPageContent('other'));
+            }}
+            href="#home"
+          >
+            Other <MdDashboard />
+          </h3>
+        </div>
       </div>
     </div>
   );

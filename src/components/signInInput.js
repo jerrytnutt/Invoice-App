@@ -11,6 +11,7 @@ function SignInInput(props) {
   const dispatch = useDispatch();
 
   const createNewAccount = (username, email, password) => {
+    console.log(email);
     createUser(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -42,10 +43,10 @@ function SignInInput(props) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    let username = event.target[0].value;
-    let email = event.target[1].value;
-    let password = event.target[2].value;
-
+    let username = event.target[1].value;
+    let email = event.target[2].value;
+    let password = event.target[3].value;
+    console.log(username, email, password);
     props.setshowSignInInput(false);
     if (returningUser) {
       return signInExistingAccount(
@@ -68,9 +69,17 @@ function SignInInput(props) {
     );
     return <div>{content}</div>;
   };
-
+  // Same user name is allowed but same email is not.
   return (
     <Form className="fourm" onSubmit={handleSubmit}>
+      <button
+        className="closeButton"
+        onClick={() => {
+          props.setshowSignInInput(false);
+        }}
+      >
+        x
+      </button>
       {returningUser ? null : <UsernameInput />}
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
@@ -93,24 +102,16 @@ function SignInInput(props) {
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Label
-          className="newUserButton"
+        <Button
           onClick={() => {
             return setreturningUser(false);
           }}
         >
-          New User?
-        </Form.Label>
+          New User ?
+        </Button>
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit
-      </Button>
-      <Button
-        onClick={() => {
-          props.setshowSignInInput(false);
-        }}
-      >
-        x
       </Button>
     </Form>
   );

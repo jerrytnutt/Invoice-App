@@ -1,41 +1,53 @@
 .sidebarVisible {
-  width: 250px;
+  width: 220px;
+  transition: all 0.2s;
   background-color: rgb(42, 42, 46);
-  transition: all 0.5s;
-  color: wheat;
+  color: white;
 }
 .sidebarHidden {
-  transition: all 1s;
-  overflow: hidden;
   width: 0;
+  overflow: hidden;
+  transition: all 0.2s;
   transform: translateX(-100%);
 }
-.sidebarMobile {
+.mobileVisible {
   min-width: 250px;
   flex-grow: 1;
-  background-color: green;
+  background-color: rgb(42, 42, 46);
 }
 .mobileHidden {
   display: none;
 }
-h1 {
-  font-size: 1em !important;
+
+.closeIcon {
+  position: relative;
+  font-size: 2rem;
+  text-align: right;
+  padding-right: 1px;
 }
-.tabs {
+.closeIcon svg {
+  color: white;
+  margin: 0;
+  position: relative;
+  top: 0px;
+}
+
+.tabContainer {
   display: flex;
   flex-direction: column;
   color: rgb(225, 225, 225);
 }
+.tabContainer div {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+}
 
-.tabs h3 {
-  text-align: left;
-  font-size: 20px;
-  padding-left: 50px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+.tabContainer h3 {
+  font-size: 1.5rem;
   margin: 0;
 }
-.tabs h3:hover {
+.tabContainer div:hover {
   background-color: rgb(7, 7, 7);
   cursor: pointer;
 }

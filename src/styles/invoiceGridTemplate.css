@@ -1,5 +1,12 @@
+.outerGrid {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(241, 241, 241);
+  width: 100%;
+}
 .gridForm {
   background-color: white;
   padding: 10px;
+  width: 90%;
   border: 2px groove silver;
 }

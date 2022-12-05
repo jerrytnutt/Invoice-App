@@ -1,15 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import userSlice from './userDataReducer';
+import userDataSlice from './userDataReducer';
 import sidebarSlice from './sidebarvisibility';
-import invoiceSlice from './invoicelist';
+import invoiceListSlice from './invoicelist';
 import mainPageContentSlice from './mainpagecontent';
 
 const store = configureStore({
   reducer: {
-    userData: userSlice.reducer,
+    userData: userDataSlice.reducer,
     sidebarvisibility: sidebarSlice.reducer,
-    invoiceList: invoiceSlice.reducer,
+    invoiceList: invoiceListSlice.reducer,
     mainPageContent: mainPageContentSlice.reducer,
   },
 });

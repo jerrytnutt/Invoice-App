@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 let initialStateValue = 'sidebarVisible';
 
-const sidebarSlice = createSlice({
+const sidebarVisibilitySlice = createSlice({
   name: 'sidebarVisibility',
   initialState: { value: initialStateValue },
   reducers: {
@@ -12,6 +12,6 @@ const sidebarSlice = createSlice({
   },
 });
 
-export const sidebarVisibility = sidebarSlice.actions;
+export const sidebarVisibility = sidebarVisibilitySlice.actions;
 
-export default sidebarSlice;
+export default sidebarVisibilitySlice;

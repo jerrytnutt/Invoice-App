@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-let initialStateValue = 'one';
+let initialStateValue = 'invoice';
 
 const mainPageContentSlice = createSlice({
   name: 'mainPageContent',

@@ -20,10 +20,16 @@ function MainContent() {
 
   const renderSwitch = (parm) => {
     switch (parm) {
-      case 'two':
-        return <div>two</div>;
+      case 'invoice':
+        return (
+          <div>
+            <Invoices />
+          </div>
+        );
+      case 'other':
+        return <div>other</div>;
       default:
-        return <Invoices />;
+        return <div>Dashboard</div>;
     }
   };
 
@@ -41,15 +47,20 @@ function MainContent() {
             await setDoc(doc(db, 'users', user.uid), {
               Invoices: [
                 {
-                  billto: { name: 'john', address: '12345northstreet' },
+                  billto: { fullName: 'john', address: '12345northstreet' },
+                  sellTo: { fullName: 'john', address: '12345northstreet' },
+
                   invoicenumber: 100,
-                },
-                {
-                  billto: { name: 'mike', address: '12345northstreet' },
-                  invoicenumber: 200,
+                  dataCreated: 0,
+                  dateDue: 0,
+                  service: { description: '', quantity: 0, cost: 0 },
                 },
               ],
-              userData: { userName: 'jake', userID: user.uid },
+              userData: {
+                userName: 'Company Name',
+                userID: user.uid,
+                address: '',
+              },
             });
 
             // can be changed to empty later
