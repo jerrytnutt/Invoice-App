@@ -6,27 +6,28 @@
   height: 100vh;
   background-color: rgb(56, 56, 77);
   padding: 5px;
-  background-color: green;
 }
 .outer header {
   background-color: orange;
 }
 .completedInvoiceContainer {
   background-color: rgb(147, 126, 185);
+  padding: 15px;
   width: 80%;
 }
 .completedInvoiceContainer h1 {
   font-size: 1rem;
-  color: rgb(89, 65, 134);
+  color: rgb(223, 223, 223);
 }
 .completedInvoiceContainer p {
   color: white;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 .upperDiv {
   display: flex;
   flex-direction: row;
+  background-color: red;
 }
 .upperDiv div {
   flex-grow: 1;

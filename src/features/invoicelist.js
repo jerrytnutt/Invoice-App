@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+//will make empty after style changes
 let initialStateValue = [
   {
     billto: { fullName: 'john', address: '12345northstreet' },

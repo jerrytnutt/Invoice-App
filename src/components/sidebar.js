@@ -67,11 +67,12 @@ function Sidebar() {
         <div>
           <h3
             onClick={() => {
-              dispatch(mainPageContent.setmainPageContent('other'));
+              dispatch(mainPageContent.setmainPageContent('account'));
             }}
             href="#home"
           >
-            Other <MdDashboard />
+            Account
+            <MdDashboard />
           </h3>
         </div>
       </div>

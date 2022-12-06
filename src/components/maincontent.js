@@ -1,5 +1,6 @@
 import '../styles/main.css';
 import Header from './header';
+import Dashboard from './dashboard';
 import Invoices from './invoiceList/invoices';
 
 import { useEffect } from 'react';
@@ -26,10 +27,10 @@ function MainContent() {
             <Invoices />
           </div>
         );
-      case 'other':
+      case 'account':
         return <div>other</div>;
       default:
-        return <div>Dashboard</div>;
+        return <Dashboard />;
     }
   };
 
