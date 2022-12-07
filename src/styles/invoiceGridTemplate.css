@@ -1,12 +1,28 @@
 .outerGrid {
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  background-color: rgb(241, 241, 241);
+
+  padding: 5px;
   width: 100%;
 }
 .gridForm {
-  background-color: white;
-  padding: 10px;
-  width: 90%;
-  border: 2px groove silver;
+  background-color: rgb(56, 56, 77);
+
+  padding: 20px;
+  width: 60%;
+}
+.gridForm h4 {
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.topLabel {
+  color: rgb(163, 130, 241);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+label {
+  color: rgb(175, 170, 188);
+  font-size: 1.2rem;
+  font-weight: 600;
 }

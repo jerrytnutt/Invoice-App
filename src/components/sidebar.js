@@ -1,6 +1,9 @@
 import '../styles/sidebar.css';
 import { BsFillArrowLeftSquareFill } from 'react-icons/bs';
 import { MdDashboard } from 'react-icons/md';
+import { FaFileInvoiceDollar } from 'react-icons/fa';
+import { MdAccountBox } from 'react-icons/md';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { useLayoutEffect } from 'react';
 
@@ -15,24 +18,25 @@ function Sidebar() {
     if (window.innerWidth < 720) {
       dispatch(sidebarVisibility.setsidebarData('mobileHidden'));
     } else {
-      dispatch(sidebarVisibility.setsidebarData('sidebarHidden'));
+      dispatch(sidebarVisibility.setsidebarData('mobileHidden'));
     }
   };
 
   useLayoutEffect(() => {
     function updateSize() {
       if (visibility === 'sidebarVisible' || visibility === 'mobileVisible') {
-        if (window.innerWidth < 720) {
+        if (window.innerWidth < 1000) {
           return dispatch(sidebarVisibility.setsidebarData('mobileVisible'));
         }
+        console.log('greater');
         return dispatch(sidebarVisibility.setsidebarData('sidebarVisible'));
-      } else if (
-        visibility === 'sidebarHidden' ||
-        visibility === 'mobileHidden'
-      )
-        if (window.innerWidth < 720) {
-          dispatch(sidebarVisibility.setsidebarData('mobileHidden'));
-        }
+      } //else if (
+      // visibility === 'sidebarHidden' ||
+      // visibility === 'mobileHidden'
+      // )
+      //   if (window.innerWidth < 720) {
+      //    dispatch(sidebarVisibility.setsidebarData('mobileHidden'));
+      //  }
     }
     window.addEventListener('resize', updateSize);
     updateSize();
@@ -52,8 +56,12 @@ function Sidebar() {
               dispatch(mainPageContent.setmainPageContent('dashboard'));
             }}
           >
-            Dashboard <MdDashboard />
+            Dashboard
           </h3>
+
+          <div className="tabIcon">
+            <MdDashboard />
+          </div>
         </div>
         <div>
           <h3
@@ -61,8 +69,11 @@ function Sidebar() {
               dispatch(mainPageContent.setmainPageContent('invoice'));
             }}
           >
-            Invoice <MdDashboard />
+            Invoice
           </h3>
+          <div className="tabIcon">
+            <FaFileInvoiceDollar />
+          </div>
         </div>
         <div>
           <h3
@@ -72,8 +83,10 @@ function Sidebar() {
             href="#home"
           >
             Account
-            <MdDashboard />
           </h3>
+          <div className="tabIcon">
+            <MdAccountBox />
+          </div>
         </div>
       </div>
     </div>

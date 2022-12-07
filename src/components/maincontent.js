@@ -30,7 +30,11 @@ function MainContent() {
       case 'account':
         return <div>other</div>;
       default:
-        return <Dashboard />;
+        return (
+          <div>
+            <Dashboard />
+          </div>
+        );
     }
   };
 
@@ -46,26 +50,15 @@ function MainContent() {
             dispatch(userDataActions.setUserData(docSnap.data().userData));
           } else {
             await setDoc(doc(db, 'users', user.uid), {
-              Invoices: [
-                {
-                  billto: { fullName: 'john', address: '12345northstreet' },
-                  sellTo: { fullName: 'john', address: '12345northstreet' },
-
-                  invoicenumber: 100,
-                  dataCreated: 0,
-                  dateDue: 0,
-                  service: { description: '', quantity: 0, cost: 0 },
-                },
-              ],
+              Invoices: [],
               userData: {
                 userName: 'Company Name',
                 userID: user.uid,
-                address: '',
+                userAddress: '',
               },
             });
 
             // can be changed to empty later
-            dispatch(invoiceList.setinvoiceData([]));
           }
         };
 

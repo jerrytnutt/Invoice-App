@@ -4,6 +4,8 @@ import { sidebarVisibility } from '../features/sidebarvisibility';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
+import { RiAccountCircleLine } from 'react-icons/ri';
+
 import { auth, signOutUser } from '../fireData/firebase-config';
 
 function Header() {
@@ -35,7 +37,7 @@ function Header() {
         }}
       >
         <div>
-          <BsFillArrowRightSquareFill />
+          <RiAccountCircleLine />
         </div>
         <p>Sign Up</p>
       </button>
@@ -67,7 +69,7 @@ function Header() {
       <div className="signAndLogButtons">
         <SignUpandLogOutButtons />
       </div>
-      <div className="sideBarbutton">
+      <div className="sideBarCloseIcon">
         <HideSidebarButton />
       </div>
 

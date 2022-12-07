@@ -1,17 +1,16 @@
 .sidebarVisible {
-  width: 220px;
-  transition: all 0.2s;
+  flex-grow: 1;
+
+  max-width: 200px;
   background-color: rgb(42, 42, 46);
   color: white;
 }
 .sidebarHidden {
   width: 0;
   overflow: hidden;
-  transition: all 0.2s;
   transform: translateX(-100%);
 }
 .mobileVisible {
-  min-width: 250px;
   flex-grow: 1;
   background-color: rgb(42, 42, 46);
 }
@@ -31,6 +30,10 @@
   position: relative;
   top: 0px;
 }
+.closeIcon svg:hover {
+  color: rgb(234, 234, 234);
+  cursor: pointer;
+}
 
 .tabContainer {
   display: flex;
@@ -42,12 +45,15 @@
   justify-content: flex-end;
   padding: 5px;
 }
+.tabContainer div:hover {
+  background-color: rgb(107, 107, 107);
+  cursor: pointer;
+}
 
 .tabContainer h3 {
   font-size: 1.5rem;
   margin: 0;
 }
-.tabContainer div:hover {
-  background-color: rgb(7, 7, 7);
-  cursor: pointer;
+.tabIcon {
+  font-size: 1.5rem;
 }

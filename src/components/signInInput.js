@@ -1,9 +1,9 @@
 import '../styles/signInSheet.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userDataActions } from '../features/userDataReducer';
-import { useState } from 'react';
 import { auth, createUser, signInUser } from '../fireData/firebase-config';
 
 function SignInInput(props) {
@@ -15,26 +15,24 @@ function SignInInput(props) {
     createUser(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        console.log(userCredential.user.uid);
+
         dispatch(
           userDataActions.setUserData({
             userName: username,
             userID: userCredential.user.uid,
+            userAddress: '',
           })
         );
       })
       .catch((error) => {
+        // error
         console.log(error);
-        // ..
       });
   };
   const signInExistingAccount = (email, password) => {
-    console.log(email, password);
     signInUser(auth, email, password)
       .then((userCredential) => {
         // Signed in
-
-        console.log(userCredential);
         // ...
       })
       .catch((error) => {
@@ -43,10 +41,12 @@ function SignInInput(props) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(event.target.checkValidity());
+
     let username = event.target[1].value;
     let email = event.target[2].value;
     let password = event.target[3].value;
-    console.log(username, email, password);
+
     props.setshowSignInInput(false);
     if (returningUser) {
       return signInExistingAccount(
@@ -61,6 +61,7 @@ function SignInInput(props) {
       <Form.Group className="mb-3" controlId="formBasicuserName">
         <Form.Label>Username</Form.Label>
         <Form.Control
+          required
           type="username"
           placeholder="Username"
           autoComplete="on"
@@ -84,6 +85,7 @@ function SignInInput(props) {
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control
+          required
           type="email"
           placeholder="Enter email"
           autoComplete="on"
@@ -96,6 +98,7 @@ function SignInInput(props) {
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
+          required
           type="password"
           placeholder="Password"
           autoComplete="on"
@@ -107,10 +110,10 @@ function SignInInput(props) {
             return setreturningUser(false);
           }}
         >
-          New User ?
+          New User?
         </Button>
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="success" type="submit">
         Submit
       </Button>
     </Form>

@@ -1,16 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 //will make empty after style changes
-let initialStateValue = [
-  {
-    billto: { fullName: 'john', address: '12345northstreet' },
-    sellTo: { fullName: 'john', address: '12345northstreet' },
-
-    invoicenumber: 100,
-    dataCreated: 0,
-    dateDue: 0,
-    service: { description: '', quantity: 0, cost: 0 },
-  },
-];
+let initialStateValue = [];
 
 const invoiceListSlice = createSlice({
   name: 'invoiceList',

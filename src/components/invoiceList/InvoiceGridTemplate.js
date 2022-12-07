@@ -11,8 +11,8 @@ import { db } from '../../fireData/firebase-config';
 
 function InvoiceGridTemplate(props) {
   const dispatch = useDispatch();
-  const [date, setDate] = useState(new Date());
-  const [sellToData, setsellToData] = useState(false);
+  //const [date, setDate] = useState(new Date());
+  //const [sellToData, setsellToData] = useState(false);
 
   const invoice = useSelector((state) => state.invoiceList.value);
   const userId = useSelector((state) => state.userData.value.userID);
@@ -53,22 +53,16 @@ function InvoiceGridTemplate(props) {
     });
     dispatch(invoiceList.setinvoiceData(newinvoiceList));
   };
-  const handleChange = () => {
-    if (sellToData) {
-      return setsellToData(false);
-    }
-    console.log('end');
-    setsellToData(true);
-  };
 
   return (
     <div className="outerGrid">
       <Form className="gridForm" onSubmit={handleSubmit}>
+        <h4>New Invoice</h4>
         <Row className="mb-3">
-          <Form.Label>Customer:</Form.Label>
+          <Form.Label className="topLabel">Customer:</Form.Label>
           <Form.Group as={Col} controlId="formGridCustomerName">
             <Form.Label>Full Name</Form.Label>
-            <Form.Control type="name" placeholder="Full Name" />
+            <Form.Control type="name" placeholder="Enter Full Name" />
           </Form.Group>
           <Form.Group as={Col} controlId="formGridCustomerEmail">
             <Form.Label>Email</Form.Label>
@@ -77,40 +71,44 @@ function InvoiceGridTemplate(props) {
         </Row>
 
         <Row className="mb-3">
-          <Form.Label>Billing Information:</Form.Label>
+          <Form.Label className="topLabel">Billing Information:</Form.Label>
           <Form.Group as={Col} controlId="formGridBillName">
             <Form.Label>Full Name</Form.Label>
             <Form.Control type="name" placeholder="Full Name" />
           </Form.Group>
 
-          <Form.Group as={Col} controlId="formGridBillAddress">
+          <Form.Group as={Col} controlId="formGridBillAddress1">
             <Form.Label>Address</Form.Label>
             <Form.Control placeholder="1234 Main St" />
           </Form.Group>
         </Row>
+
+        <Form.Group className="mb-3" controlId="formGridBillAddress1">
+          <Form.Label>Address 2</Form.Label>
+          <Form.Control placeholder="Apartment, studio, or floor" />
+        </Form.Group>
+
         <Row className="mb-3">
-          <Form.Label>Shipping Information:</Form.Label>
-          <Form.Group as={Col} controlId="formGridShipName">
-            <Form.Label>Full Name</Form.Label>
-            <Form.Control
-              type="name"
-              placeholder="Enter Full Name"
-              disabled={sellToData}
-            />
+          <Form.Group as={Col} controlId="formGridBillcity">
+            <Form.Label>City</Form.Label>
+            <Form.Control />
           </Form.Group>
-          <Form.Group as={Col} controlId="formGridShipAddress">
-            <Form.Label>Address</Form.Label>
-            <Form.Control placeholder="1234 Main St" disabled={sellToData} />
+
+          <Form.Group as={Col} controlId="formGridBillState">
+            <Form.Label>State</Form.Label>
+            <Form.Select defaultValue="Choose...">
+              <option>Choose...</option>
+              <option>...</option>
+            </Form.Select>
           </Form.Group>
-          <Form.Group className="mb-3" id="formGridCheckbox">
-            <Form.Check
-              type="checkbox"
-              label="Same as Billing Adress"
-              onChange={handleChange}
-            />
+
+          <Form.Group as={Col} controlId="formGridZip">
+            <Form.Label>Zip</Form.Label>
+            <Form.Control />
           </Form.Group>
         </Row>
-        <Form.Label>Invoice</Form.Label>
+
+        <Form.Label className="topLabel">Invoice</Form.Label>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formInvoiceDate">
             <Form.Label>Invoice Date</Form.Label>
@@ -118,8 +116,8 @@ function InvoiceGridTemplate(props) {
               type="date"
               name="duedate"
               placeholder="Due date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
+              //// value={date}
+              //            onChange={(e) => setDate(e.target.value)}
             />
           </Form.Group>
           <Form.Group as={Col} controlId="formDueDate">
@@ -128,8 +126,8 @@ function InvoiceGridTemplate(props) {
               type="date"
               name="duedate"
               placeholder="Due date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
+              // value={date}
+              //onChange={(e) => setDate(e.target.value)}
             />
           </Form.Group>
         </Row>
@@ -140,6 +138,12 @@ function InvoiceGridTemplate(props) {
           </Form.Group>
           <Form.Group as={Col} controlId="formQuantity">
             <Form.Label>QTY</Form.Label>
+            <Form.Control type="number" />
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} controlId="formAmount">
+            <Form.Label>Amount</Form.Label>
             <Form.Control type="number" />
           </Form.Group>
         </Row>

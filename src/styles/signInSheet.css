@@ -5,27 +5,27 @@
   top: 40%;
   left: 55%;
   margin-right: -50%;
-  border: 5px groove silver;
   padding: 25px;
-  background-color: rgb(245, 245, 245);
   transform: translate(-50%, -50%);
+  border: 5px groove silver;
+  background-color: rgb(245, 245, 245);
 }
 .mb-3 {
   color: black;
+  font-size: 1.2rem;
 }
 .fourm input {
-  margin-top: 10px;
-  margin-bottom: 15px;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 .closeButton {
-  float: right;
-  font-size: 2rem;
-  color: grey;
-  background-color: rgb(245, 245, 245);
   position: absolute;
   right: 0;
   top: 0;
   border: 0;
+  font-size: 2rem;
+  color: grey;
+  background-color: rgb(245, 245, 245);
 }
 .closeButton:hover {
   color: black;
