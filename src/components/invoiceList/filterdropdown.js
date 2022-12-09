@@ -2,8 +2,39 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useSelector, useDispatch } from 'react-redux';
+import { invoiceList } from '../../features/invoicelist';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../fireData/firebase-config';
 
 function FilterDropDown() {
+  const dispatch = useDispatch();
+  const invoice = useSelector((state) => state.invoiceList.value);
+  const userId = useSelector((state) => state.userData.value.userID);
+  const handleClick = () => {
+    let newInvoice = invoice.slice();
+    console.log(invoice);
+    function compare(propName) {
+      return function (a, b) {
+        if (a[propName] < b[propName]) return -1;
+        if (a[propName] > b[propName]) return 1;
+        return 0;
+      };
+    }
+
+    newInvoice.sort(compare('invoicenumber'));
+
+    const dataSwap = async () => {
+      const dataRef = doc(db, 'users', userId);
+
+      await updateDoc(dataRef, {
+        Invoices: newInvoice,
+      });
+      dispatch(invoiceList.setinvoiceData(newInvoice));
+    };
+
+    return dataSwap();
+  };
   return (
     <Navbar variant="dark" bg="dark">
       <Container fluid>
@@ -15,7 +46,9 @@ function FilterDropDown() {
               title="Dropdown"
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown.Item onClick={handleClick} href="#action/3.1">
+                Action
+              </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
               </NavDropdown.Item>

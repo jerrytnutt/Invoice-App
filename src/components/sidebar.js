@@ -28,7 +28,7 @@ function Sidebar() {
         if (window.innerWidth < 1000) {
           return dispatch(sidebarVisibility.setsidebarData('mobileVisible'));
         }
-        console.log('greater');
+
         return dispatch(sidebarVisibility.setsidebarData('sidebarVisible'));
       } //else if (
       // visibility === 'sidebarHidden' ||

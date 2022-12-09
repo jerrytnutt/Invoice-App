@@ -12,17 +12,15 @@ function DarkInvoiceTable(props) {
   };
   const CreateInvoiceList = () => {
     let content = invoiceList.map((element, index) => {
-      let name = element.billto.name;
       let data = JSON.stringify(element);
-      // console.log(element);
 
       return (
         <tr key={index}>
-          <td>1</td>
-          <td>{name}</td>
-          <td>Otto</td>
+          <td>{element.invoicenumber}</td>
+          <td>{element.dates.invoice}</td>
+          <td>{element.customer.name}</td>
           <td data={data} onClick={handleClick}>
-            @mdo
+            {element.service.amount}
           </td>
         </tr>
       );
@@ -34,9 +32,9 @@ function DarkInvoiceTable(props) {
       <thead>
         <tr>
           <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
+          <th>Date</th>
+          <th>Full Name</th>
+          <th>Amount</th>
         </tr>
       </thead>
       <CreateInvoiceList />

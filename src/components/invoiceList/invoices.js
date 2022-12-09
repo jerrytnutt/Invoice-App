@@ -10,16 +10,14 @@ function Invoices() {
     type: null,
     data: {},
   });
-  //const openInvoiceCompletedPage = (obj) => {
-  //console.log(obj);
-  //setinvoicePageType('Complete');
-  //return null;
-  //};
 
   if (invoicePageType.type === 'New') {
     return (
       <div className="invoiceContainer">
-        <InvoiceGridTemplate setinvoicePageType={setinvoicePageType} />
+        <InvoiceGridTemplate
+          setinvoicePageType={setinvoicePageType}
+          invoicePageType={invoicePageType}
+        />
       </div>
     );
   }

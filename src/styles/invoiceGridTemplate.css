@@ -6,11 +6,22 @@
   padding: 5px;
   width: 100%;
 }
+
 .gridForm {
+  position: relative;
   background-color: rgb(56, 56, 77);
 
   padding: 20px;
   width: 60%;
+}
+.closeX {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 0;
+  font-size: 1.5rem;
+  color: rgb(255, 255, 255);
+  background-color: rgb(56, 56, 77);
 }
 .gridForm h4 {
   color: white;

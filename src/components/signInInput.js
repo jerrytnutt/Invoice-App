@@ -49,9 +49,11 @@ function SignInInput(props) {
 
     props.setshowSignInInput(false);
     if (returningUser) {
+      console.log(event.target[1].value);
+      console.log(event.target[2].value);
       return signInExistingAccount(
-        event.target[0].value,
-        event.target[1].value
+        event.target[1].value,
+        event.target[2].value
       );
     }
     return createNewAccount(username, email, password);
