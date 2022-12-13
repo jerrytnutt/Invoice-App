@@ -4,13 +4,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useSelector, useDispatch } from 'react-redux';
 import { invoiceList } from '../../features/invoicelist';
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../../fireData/firebase-config';
 
 function FilterDropDown() {
   const dispatch = useDispatch();
   const invoice = useSelector((state) => state.invoiceList.value);
-  const userId = useSelector((state) => state.userData.value.userID);
+
   const handleClick = () => {
     let newInvoice = invoice.slice();
     console.log(invoice);
@@ -23,17 +21,17 @@ function FilterDropDown() {
     }
 
     newInvoice.sort(compare('invoicenumber'));
+    // Do I need to update the db with the swap? no.
+    //const dataSwap = async () => {
+    //const dataRef = doc(db, 'users', userId);
 
-    const dataSwap = async () => {
-      const dataRef = doc(db, 'users', userId);
+    //await updateDoc(dataRef, {
+    // Invoices: newInvoice,
+    // });
+    dispatch(invoiceList.setinvoiceData(newInvoice));
+    //};
 
-      await updateDoc(dataRef, {
-        Invoices: newInvoice,
-      });
-      dispatch(invoiceList.setinvoiceData(newInvoice));
-    };
-
-    return dataSwap();
+    //return dataSwap();
   };
   return (
     <Navbar variant="dark" bg="dark">

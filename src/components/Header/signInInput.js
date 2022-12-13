@@ -20,7 +20,9 @@ function SignInInput(props) {
           userDataActions.setUserData({
             userName: username,
             userID: userCredential.user.uid,
-            userAddress: '',
+            companyName: '',
+            companyAddress: '',
+            companyEmail: '',
           })
         );
       })

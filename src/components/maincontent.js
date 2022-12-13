@@ -59,7 +59,9 @@ function MainContent() {
               userData: {
                 userName: 'Company Name',
                 userID: user.uid,
-                userAddress: '',
+                companyName: '',
+                companyAddress: '',
+                companyEmail: '',
               },
             });
 

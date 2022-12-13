@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-let initialStateValue = { userName: false, userID: '', userAddress: '' };
+let initialStateValue = {
+  userName: false,
+  userID: '',
+  companyName: '',
+  companyAddress: '',
+  companyEmail: '',
+};
 
 const userDataSlice = createSlice({
   name: 'userData',

@@ -21,21 +21,22 @@ function InvoiceGridTemplate(props) {
   const getLength = (obj) => {
     return Object.keys(obj).length === 0;
   };
-  const previousInvoice = getLength(propsObject);
-  console.log(previousInvoice);
+  const newInvoice = getLength(propsObject);
 
   const invoice = useSelector((state) => state.invoiceList.value);
   const userId = useSelector((state) => state.userData.value.userID);
-  //console.log(invoice);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let randomNumber = Math.floor(Math.random() * 1000);
+    let randomNumber = invoice.length + 1;
+    let paidStatus = 'Not Paid';
     const formData = new FormData(event.target);
     const formProps = Object.fromEntries(formData);
 
-    if (!previousInvoice) {
+    if (!newInvoice) {
       randomNumber = propsObject.invoicenumber;
+      paidStatus = propsObject.paidStatus;
 
       for (var key of Object.keys(formProps)) {
         if (formProps[key] === '') {
@@ -66,21 +67,25 @@ function InvoiceGridTemplate(props) {
       },
 
       invoicenumber: randomNumber,
+      paidStatus: paidStatus,
     };
 
     let newinvoiceList = null;
 
-    if (!previousInvoice) {
+    if (!newInvoice) {
+      // I fixed the unnecessary search loop
       newinvoiceList = invoice.slice();
-      function search(nameKey, myArray) {
-        for (let i = 0; i < myArray.length; i++) {
-          if (myArray[i].invoicenumber === nameKey) {
-            newinvoiceList[i] = newInvoiceObject;
-          }
-        }
-      }
+      let location = propsObject.invoicenumber - 1;
+      console.log(location);
+      //  function search(nameKey, myArray) {
+      //  for (let i = 0; i < myArray.length; i++) {
+      //  if (myArray[i].invoicenumber === nameKey) {
+      newinvoiceList[location] = newInvoiceObject;
+      // }
+      // }
+      //}
 
-      search(randomNumber, invoice);
+      //search(randomNumber, invoice);
     } else {
       newinvoiceList = invoice.concat([newInvoiceObject]);
     }
@@ -117,22 +122,22 @@ function InvoiceGridTemplate(props) {
           <Form.Group as={Col} controlId="customerName">
             <Form.Label>Full Name</Form.Label>
             <Form.Control
-              required={previousInvoice}
+              required={newInvoice}
               name="customerName"
               type="name"
               placeholder={
-                previousInvoice ? 'Enter Full Name' : propsObject.customer.name
+                newInvoice ? 'Enter Full Name' : propsObject.customer.name
               }
             />
           </Form.Group>
           <Form.Group as={Col} controlId="customerEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control
-              required={previousInvoice}
+              required={newInvoice}
               name="customerEmail"
               type="email"
               placeholder={
-                previousInvoice ? 'Enter Email' : propsObject.customer.email
+                newInvoice ? 'Enter Email' : propsObject.customer.email
               }
             />
           </Form.Group>
@@ -143,11 +148,11 @@ function InvoiceGridTemplate(props) {
           <Form.Group as={Col} controlId="billtoName">
             <Form.Label>Full Name</Form.Label>
             <Form.Control
-              required={previousInvoice}
+              required={newInvoice}
               name="billtoName"
               type="name"
               placeholder={
-                previousInvoice ? 'Enter Full Name' : propsObject.billto.name
+                newInvoice ? 'Enter Full Name' : propsObject.billto.name
               }
             />
           </Form.Group>
@@ -155,12 +160,10 @@ function InvoiceGridTemplate(props) {
           <Form.Group as={Col} controlId="billtoAddress1">
             <Form.Label>Address</Form.Label>
             <Form.Control
-              required={previousInvoice}
+              required={newInvoice}
               name="billtoAddress1"
               placeholder={
-                previousInvoice
-                  ? '12345 north street'
-                  : propsObject.billto.address
+                newInvoice ? '12345 north street' : propsObject.billto.address
               }
             />
           </Form.Group>
@@ -171,7 +174,7 @@ function InvoiceGridTemplate(props) {
           <Form.Control
             name="billtoAddress2"
             placeholder={
-              previousInvoice
+              newInvoice
                 ? 'Apartment, studio, or floor'
                 : propsObject.billto.address2
             }
@@ -182,10 +185,10 @@ function InvoiceGridTemplate(props) {
           <Form.Group as={Col} controlId="billtoCity">
             <Form.Label>City</Form.Label>
             <Form.Control
-              required={previousInvoice}
+              required={newInvoice}
               name="billtoCity"
               placeholder={
-                previousInvoice ? 'Enter city' : propsObject.billto.billtoCity
+                newInvoice ? 'Enter city' : propsObject.billto.billtoCity
               }
             />
           </Form.Group>
@@ -193,10 +196,10 @@ function InvoiceGridTemplate(props) {
           <Form.Group as={Col} controlId="billtoState">
             <Form.Label>State</Form.Label>
             <Form.Control
-              required={previousInvoice}
+              required={newInvoice}
               name="billtoState"
               placeholder={
-                previousInvoice ? 'Enter State' : propsObject.billto.billtoState
+                newInvoice ? 'Enter State' : propsObject.billto.billtoState
               }
             ></Form.Control>
           </Form.Group>
@@ -204,10 +207,10 @@ function InvoiceGridTemplate(props) {
           <Form.Group as={Col} controlId="billtoZip">
             <Form.Label>Zip</Form.Label>
             <Form.Control
-              required={previousInvoice}
+              required={newInvoice}
               name="billtoZip"
               placeholder={
-                previousInvoice ? 'Enter Zip' : propsObject.billto.billtoZip
+                newInvoice ? 'Enter Zip' : propsObject.billto.billtoZip
               }
             />
           </Form.Group>
@@ -218,24 +221,24 @@ function InvoiceGridTemplate(props) {
           <Form.Group as={Col} controlId="invoiceDate">
             <Form.Label>Invoice Date</Form.Label>
             <Form.Control
-              required={previousInvoice}
+              required={newInvoice}
               type="date"
               name="invoiceDate"
               placeholder="1990-10-10"
-              //placeholder={previousInvoice ? 'Enter due Date' : propsObject.dates.due}
-              value={previousInvoice ? date2 : propsObject.dates.invoice}
+              //placeholder={newInvoice ? 'Enter due Date' : propsObject.dates.due}
+              value={newInvoice ? date2 : propsObject.dates.invoice}
               onChange={(e) => setdate2(e.target.value)}
             />
           </Form.Group>
           <Form.Group as={Col} controlId="dueDate">
             <Form.Label>Due Date</Form.Label>
             <Form.Control
-              required={previousInvoice}
+              required={newInvoice}
               type="date"
               name="dueDate"
               placeholder="1990-10-10"
-              //placeholder={previousInvoice ? 'Enter due Date' : propsObject.dates.due}
-              value={previousInvoice ? date1 : propsObject.dates.due}
+              //placeholder={newInvoice ? 'Enter due Date' : propsObject.dates.due}
+              value={newInvoice ? date1 : propsObject.dates.due}
               onChange={(e) => setdate1(e.target.value)}
             />
           </Form.Group>
@@ -244,23 +247,21 @@ function InvoiceGridTemplate(props) {
           <Form.Group as={Col} controlId="product">
             <Form.Label>Product</Form.Label>
             <Form.Control
-              required={previousInvoice}
+              required={newInvoice}
               name="product"
               type="product"
               placeholder={
-                previousInvoice ? 'Enter Product' : propsObject.service.name
+                newInvoice ? 'Enter Product' : propsObject.service.name
               }
             />
           </Form.Group>
           <Form.Group as={Col} controlId="qty">
             <Form.Label>QTY</Form.Label>
             <Form.Control
-              required={previousInvoice}
+              required={newInvoice}
               name="qty"
               type="number"
-              placeholder={
-                previousInvoice ? 'qty' : propsObject.service.quantity
-              }
+              placeholder={newInvoice ? 'qty' : propsObject.service.quantity}
             />
           </Form.Group>
         </Row>
@@ -268,11 +269,11 @@ function InvoiceGridTemplate(props) {
           <Form.Group as={Col} controlId="amount">
             <Form.Label>Amount</Form.Label>
             <Form.Control
-              required={previousInvoice}
+              required={newInvoice}
               name="amount"
               type="number"
               placeholder={
-                previousInvoice ? 'Enter Amount' : propsObject.service.amount
+                newInvoice ? 'Enter Amount' : propsObject.service.amount
               }
             />
           </Form.Group>

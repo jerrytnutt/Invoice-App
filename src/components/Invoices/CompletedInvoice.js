@@ -14,18 +14,20 @@ function CompletedInvoice(props) {
 
   const invoiceData = props.invoicePageType.data;
   const deleteInvoice = () => {
-    let invoiceNum = invoiceData.invoicenumber;
+    let invoiceNum = invoiceData.invoicenumber - 1;
     let newinvoiceList = invoice.slice();
 
-    function search(nameKey, myArray) {
-      for (let i = 0; i < myArray.length; i++) {
-        if (myArray[i].invoicenumber === nameKey) {
-          console.log(newinvoiceList);
-          newinvoiceList.splice(i, 1);
-          console.log(newinvoiceList);
-        }
-      }
-    }
+    //function search(nameKey, myArray) {
+    // for (let i = 0; i < myArray.length; i++) {
+    // if (myArray[i].invoicenumber === nameKey) {
+    // console.log(newinvoiceList);
+
+    newinvoiceList.splice(invoiceNum, 1);
+    // console.log(newinvoiceList);
+    //}
+    //}
+    //}
+
     const dataSwap = async () => {
       const dataRef = doc(db, 'users', userId);
 
@@ -34,11 +36,13 @@ function CompletedInvoice(props) {
       });
       dispatch(invoiceList.setinvoiceData(newinvoiceList));
     };
-    search(invoiceNum, newinvoiceList);
+    // search(invoiceNum, newinvoiceList);
     dataSwap();
   };
 
-  console.log('data', invoiceData);
+  const changePaidstatus = () => {
+    console.log('paid');
+  };
   return (
     <div className="outer">
       <header>
@@ -62,16 +66,7 @@ function CompletedInvoice(props) {
           >
             Delete
           </Button>
-          <button
-            onClick={() => {
-              props.setinvoicePageType({
-                type: 'New',
-                data: invoiceData,
-              });
-            }}
-          >
-            Mark as Paid
-          </button>
+          <button onClick={changePaidstatus}>Mark as Paid</button>
         </div>
         <div className="paidInfo">
           <div className="ball">

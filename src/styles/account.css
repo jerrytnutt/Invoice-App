@@ -21,19 +21,21 @@
   margin-bottom: 5px;
 }
 .accountLeft {
-  flex-grow: 1;
+  flex-grow: 2;
   color: rgb(163, 130, 241);
   font-size: 1.2rem;
   font-weight: 600;
 }
 .accountRight {
-  flex-grow: 3;
+  flex-grow: 2;
   color: rgb(111, 77, 189);
 
   font-weight: 600;
 }
 .accountFinal {
-  color: rgb(111, 77, 189);
-
-  font-weight: 600;
+  flex-grow: 1;
+  border: 1px solid red;
+}
+.accountFinal input {
+  background-color: red;
 }

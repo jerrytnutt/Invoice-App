@@ -1,24 +1,48 @@
 import '../../styles/account.css';
 import { useState } from 'react';
+import AccountPageInput from './AccountPageEditor';
+import { useSelector, useDispatch } from 'react-redux';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../fireData/firebase-config';
+import { userDataActions } from '../../features/userDataReducer';
 
 function Account() {
   const [editUserInfo, seteditUserInfo] = useState(false);
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.userData.value);
+  console.log(user);
+  const updateUserInfo = async (data) => {
+    const newUserData = {
+      userName: user.userName,
+      userID: user.userID,
+      companyName: data.companyName,
+      companyAddress: data.companyAddress,
+      companyEmail: data.companyEmail,
+    };
+
+    const dataRef = doc(db, 'users', user.userID);
+    await updateDoc(dataRef, {
+      userData: newUserData,
+    });
+    dispatch(userDataActions.setUserData(newUserData));
+    seteditUserInfo(false);
+  };
   const handleClick = () => {
-    console.log(editUserInfo);
     return seteditUserInfo(!editUserInfo);
   };
   const UserInfoDisplay = () => {
     let content = (
       <div>
-        <p>Company Name</p>
-        <p>Company Address false false false</p>
+        <p>{user.companyName}</p>
+        <p>{user.companyEmail}</p>
+        <p>{user.companyAddress}</p>
       </div>
     );
     if (editUserInfo) {
       content = (
         <div>
-          <p>Company Name</p>
-          <p>Company Address true</p>
+          <AccountPageInput updateUserInfo={updateUserInfo} />
         </div>
       );
     }
