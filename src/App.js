@@ -1,6 +1,6 @@
 import './App.css';
-import Sidebar from './components/sidebar';
-import MainContent from './components/maincontent';
+import Sidebar from './components/Sidebar';
+import MainContent from './components/MainContent';
 
 function App() {
   return (

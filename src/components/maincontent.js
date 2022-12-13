@@ -1,7 +1,8 @@
 import '../styles/main.css';
-import Header from './header';
-import Dashboard from './dashboard';
-import Invoices from './invoiceList/invoices';
+import Header from './Header/Header';
+import Dashboard from './Dashboard/Dashboard';
+import Invoices from './Invoices/invoices';
+import Account from './Account/Account';
 
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -28,7 +29,11 @@ function MainContent() {
           </div>
         );
       case 'account':
-        return <div>other</div>;
+        return (
+          <div>
+            <Account />
+          </div>
+        );
       default:
         return (
           <div>

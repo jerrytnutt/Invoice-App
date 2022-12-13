@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import FilterDropDown from './filterdropdown';
 import InvoiceGridTemplate from './InvoiceGridTemplate';
-import CompletedinvoicePage from './completedInvoice';
-import DarkInvoiceTable from './darkinvoicetable';
+import CompletedinvoicePage from './CompletedInvoice';
+import DarkInvoiceTable from './InvoiceTable';
 function Invoices() {
   const [invoicePageType, setinvoicePageType] = useState({
     type: null,

@@ -1,7 +1,7 @@
 import Table from 'react-bootstrap/Table';
 import { useSelector } from 'react-redux';
 
-function DarkInvoiceTable(props) {
+function InvoiceTable(props) {
   const invoiceList = useSelector((state) => state.invoiceList.value);
   //console.log(invoiceList);
   const handleClick = (event) => {
@@ -42,4 +42,4 @@ function DarkInvoiceTable(props) {
   );
 }
 
-export default DarkInvoiceTable;
+export default InvoiceTable;

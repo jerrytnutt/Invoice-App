@@ -1,4 +1,4 @@
-import '../styles/dashboard.css';
+import '../../styles/dashboard.css';
 import { FaFileInvoiceDollar } from 'react-icons/fa';
 import { MdAccountBox } from 'react-icons/md';
 import { MdSpaceDashboard } from 'react-icons/md';

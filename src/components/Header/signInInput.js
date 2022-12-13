@@ -1,10 +1,10 @@
-import '../styles/signInSheet.css';
+import '../../styles/signInSheet.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { userDataActions } from '../features/userDataReducer';
-import { auth, createUser, signInUser } from '../fireData/firebase-config';
+import { userDataActions } from '../../features/userDataReducer';
+import { auth, createUser, signInUser } from '../../fireData/firebase-config';
 
 function SignInInput(props) {
   const [returningUser, setreturningUser] = useState(true);

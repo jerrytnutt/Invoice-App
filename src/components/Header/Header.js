@@ -1,12 +1,12 @@
-import '../styles/header.css';
+import '../../styles/header.css';
 import SignInInput from './signInInput';
-import { sidebarVisibility } from '../features/sidebarvisibility';
+import { sidebarVisibility } from '../../features/sidebarvisibility';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 import { RiAccountCircleLine } from 'react-icons/ri';
 
-import { auth, signOutUser } from '../fireData/firebase-config';
+import { auth, signOutUser } from '../../fireData/firebase-config';
 
 function Header() {
   const [showSignInInput, setshowSignInInput] = useState(false);
