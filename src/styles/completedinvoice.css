@@ -19,15 +19,26 @@
 
   background-color: rgba(200, 169, 44, 0.5);
 }
-.paidInfo p {
+.paidInfo p,
+.paidTrue p {
   position: relative;
   top: 10px;
   margin-left: 5px;
   font-size: 1.1rem;
   font-weight: 500;
 }
-.paidInfo .ball {
+.paidInfo .ball,
+.paidTrue .ball {
   font-size: 1.2rem;
+}
+.paidTrue {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  line-height: normal;
+  padding: 5px;
+
+  background-color: rgba(78, 200, 44, 0.5);
 }
 .completedInvoiceContainer {
   position: relative;

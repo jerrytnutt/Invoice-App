@@ -11,12 +11,10 @@ import { db } from '../../fireData/firebase-config';
 
 function InvoiceGridTemplate(props) {
   const dispatch = useDispatch();
-  const [date1, setdate1] = useState('1994-12-12');
-  const [date2, setdate2] = useState('1980-12-12');
+  const [dueDate, setdueDate] = useState('1994-12-12');
+  const [invoiceDate, setinvoiceDate] = useState('1980-12-12');
 
   const propsObject = props.invoicePageType.data;
-
-  //console.log(propsObject);
 
   const getLength = (obj) => {
     return Object.keys(obj).length === 0;
@@ -29,13 +27,14 @@ function InvoiceGridTemplate(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let randomNumber = invoice.length + 1;
-    let paidStatus = 'Not Paid';
     const formData = new FormData(event.target);
     const formProps = Object.fromEntries(formData);
 
+    let invoiceNumber = invoice.length + 1;
+    let paidStatus = false;
+
     if (!newInvoice) {
-      randomNumber = propsObject.invoicenumber;
+      invoiceNumber = propsObject.invoicenumber;
       paidStatus = propsObject.paidStatus;
 
       for (var key of Object.keys(formProps)) {
@@ -66,36 +65,25 @@ function InvoiceGridTemplate(props) {
         amount: formProps.amount,
       },
 
-      invoicenumber: randomNumber,
+      invoicenumber: invoiceNumber,
       paidStatus: paidStatus,
     };
 
-    let newinvoiceList = null;
+    let newInvoiceList = invoice.slice();
 
     if (!newInvoice) {
-      // I fixed the unnecessary search loop
-      newinvoiceList = invoice.slice();
-      let location = propsObject.invoicenumber - 1;
-      console.log(location);
-      //  function search(nameKey, myArray) {
-      //  for (let i = 0; i < myArray.length; i++) {
-      //  if (myArray[i].invoicenumber === nameKey) {
-      newinvoiceList[location] = newInvoiceObject;
-      // }
-      // }
-      //}
-
-      //search(randomNumber, invoice);
+      const location = propsObject.invoicenumber - 1;
+      newInvoiceList[location] = newInvoiceObject;
     } else {
-      newinvoiceList = invoice.concat([newInvoiceObject]);
+      newInvoiceList = newInvoiceList.concat([newInvoiceObject]);
     }
 
     const dataRef = doc(db, 'users', userId);
 
     await updateDoc(dataRef, {
-      Invoices: newinvoiceList,
+      Invoices: newInvoiceList,
     });
-    dispatch(invoiceList.setinvoiceData(newinvoiceList));
+    dispatch(invoiceList.setinvoiceData(newInvoiceList));
     props.setinvoicePageType({
       type: null,
       data: {},
@@ -225,9 +213,8 @@ function InvoiceGridTemplate(props) {
               type="date"
               name="invoiceDate"
               placeholder="1990-10-10"
-              //placeholder={newInvoice ? 'Enter due Date' : propsObject.dates.due}
-              value={newInvoice ? date2 : propsObject.dates.invoice}
-              onChange={(e) => setdate2(e.target.value)}
+              value={newInvoice ? invoiceDate : propsObject.dates.invoice}
+              onChange={(e) => setinvoiceDate(e.target.value)}
             />
           </Form.Group>
           <Form.Group as={Col} controlId="dueDate">
@@ -237,9 +224,8 @@ function InvoiceGridTemplate(props) {
               type="date"
               name="dueDate"
               placeholder="1990-10-10"
-              //placeholder={newInvoice ? 'Enter due Date' : propsObject.dates.due}
-              value={newInvoice ? date1 : propsObject.dates.due}
-              onChange={(e) => setdate1(e.target.value)}
+              value={newInvoice ? dueDate : propsObject.dates.due}
+              onChange={(e) => setdueDate(e.target.value)}
             />
           </Form.Group>
         </Row>
