@@ -11,7 +11,7 @@ function Account() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.userData.value);
-  console.log(user);
+
   const updateUserInfo = async (data) => {
     const newUserData = {
       userName: user.userName,

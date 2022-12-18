@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userDataActions } from '../../features/userDataReducer';
 import { auth, createUser, signInUser } from '../../fireData/firebase-config';
+import { db } from '../../fireData/firebase-config';
+import { doc, setDoc } from 'firebase/firestore';
 
 function SignInInput(props) {
   const [returningUser, setreturningUser] = useState(true);
@@ -14,7 +16,17 @@ function SignInInput(props) {
     console.log(email);
     createUser(auth, email, password)
       .then((userCredential) => {
-        // Signed in
+        //all the data you need for your new account is set here.
+        setDoc(doc(db, 'users', userCredential.user.uid), {
+          Invoices: [],
+          userData: {
+            userName: username,
+            userID: userCredential.user.uid,
+            companyName: '',
+            companyAddress: '',
+            companyEmail: '',
+          },
+        });
 
         dispatch(
           userDataActions.setUserData({
