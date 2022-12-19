@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 import { RiAccountCircleLine } from 'react-icons/ri';
+import { userDataActions } from '../../features/userDataReducer';
+import { invoiceList } from '../../features/invoicelist';
 
 import { auth, signOutUser } from '../../fireData/firebase-config';
 
@@ -17,9 +19,8 @@ function Header() {
   const dispatch = useDispatch();
 
   const HideSidebarButton = () => {
-    let content = null;
-    if (visibility === 'sidebarHidden' || visibility === 'mobileHidden') {
-      content = (
+    if (visibility !== 'sidebarVisible') {
+      return (
         <BsFillArrowRightSquareFill
           onClick={() => {
             dispatch(sidebarVisibility.setsidebarData('sidebarVisible'));
@@ -27,8 +28,8 @@ function Header() {
         />
       );
     }
-    return <div>{content}</div>;
   };
+
   const SignUpandLogOutButtons = () => {
     let content = (
       <button
@@ -48,7 +49,8 @@ function Header() {
           onClick={() => {
             signOutUser(auth)
               .then(() => {
-                // Sign-out successful.
+                dispatch(invoiceList.resetData());
+                dispatch(userDataActions.resetUserData());
               })
               .catch((error) => {
                 // An error happened.

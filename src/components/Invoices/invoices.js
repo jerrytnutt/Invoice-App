@@ -2,31 +2,31 @@ import '../../styles/invoices.css';
 import { useState } from 'react';
 
 import FilterDropDown from './filterdropdown';
-import InvoiceGridTemplate from './InvoiceGridTemplate';
+import NewInvoiceForm from './NewInvoiceForm';
 import CompletedinvoicePage from './CompletedInvoice';
 import DarkInvoiceTable from './InvoiceTable';
 function Invoices() {
-  const [invoicePageType, setinvoicePageType] = useState({
+  const [invoiceContent, setinvoiceContent] = useState({
     type: null,
     data: {},
   });
 
-  if (invoicePageType.type === 'New') {
+  if (invoiceContent.type === 'New') {
     return (
       <div className="invoiceContainer">
-        <InvoiceGridTemplate
-          setinvoicePageType={setinvoicePageType}
-          invoicePageType={invoicePageType}
+        <NewInvoiceForm
+          setinvoiceContent={setinvoiceContent}
+          invoiceContent={invoiceContent}
         />
       </div>
     );
   }
-  if (invoicePageType.type === 'Complete') {
+  if (invoiceContent.type === 'Complete') {
     return (
       <div className="invoiceContainer">
         <CompletedinvoicePage
-          setinvoicePageType={setinvoicePageType}
-          invoicePageType={invoicePageType}
+          setinvoiceContent={setinvoiceContent}
+          invoiceContent={invoiceContent}
         />
       </div>
     );
@@ -40,7 +40,7 @@ function Invoices() {
           <button
             className="newButton"
             onClick={() => {
-              setinvoicePageType({
+              setinvoiceContent({
                 type: 'New',
                 data: {},
               });
@@ -51,7 +51,7 @@ function Invoices() {
         </div>
       </div>
       <div className="invoiceList">
-        <DarkInvoiceTable setinvoicePageType={setinvoicePageType} />
+        <DarkInvoiceTable setinvoiceContent={setinvoiceContent} />
       </div>
     </div>
   );

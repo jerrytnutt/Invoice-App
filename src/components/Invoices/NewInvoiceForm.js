@@ -9,12 +9,12 @@ import { invoiceList } from '../../features/invoicelist';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../fireData/firebase-config';
 
-function InvoiceGridTemplate(props) {
+function NewInvoiceForm(props) {
   const dispatch = useDispatch();
   const [dueDate, setdueDate] = useState('1994-12-12');
   const [invoiceDate, setinvoiceDate] = useState('1980-12-12');
 
-  const propsObject = props.invoicePageType.data;
+  const propsObject = props.invoiceContent.data;
 
   const getLength = (obj) => {
     return Object.keys(obj).length === 0;
@@ -84,7 +84,7 @@ function InvoiceGridTemplate(props) {
       Invoices: newInvoiceList,
     });
     dispatch(invoiceList.setinvoiceData(newInvoiceList));
-    props.setinvoicePageType({
+    props.setinvoiceContent({
       type: null,
       data: {},
     });
@@ -96,7 +96,7 @@ function InvoiceGridTemplate(props) {
         <button
           className="closeX"
           onClick={() => {
-            props.setinvoicePageType({
+            props.setinvoiceContent({
               type: null,
               data: {},
             });
@@ -272,4 +272,4 @@ function InvoiceGridTemplate(props) {
   );
 }
 
-export default InvoiceGridTemplate;
+export default NewInvoiceForm;

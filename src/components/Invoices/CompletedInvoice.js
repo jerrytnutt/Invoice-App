@@ -14,7 +14,7 @@ function CompletedInvoice(props) {
   const invoice = useSelector((state) => state.invoiceList.value);
   const userId = useSelector((state) => state.userData.value.userID);
 
-  const invoiceData = props.invoicePageType.data;
+  const invoiceData = props.invoiceContent.data;
   const payment = invoiceData.paidStatus;
   console.log(invoice);
   //console.log(payment);
@@ -100,7 +100,7 @@ function CompletedInvoice(props) {
           <Button
             variant="primary"
             onClick={() => {
-              props.setinvoicePageType({
+              props.setinvoiceContent({
                 type: 'New',
                 data: invoiceData,
               });
@@ -130,7 +130,7 @@ function CompletedInvoice(props) {
         <button
           className="closeX"
           onClick={() => {
-            props.setinvoicePageType({
+            props.setinvoiceContent({
               type: null,
               data: {},
             });

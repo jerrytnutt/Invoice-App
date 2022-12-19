@@ -8,7 +8,7 @@ function InvoiceTable(props) {
     event.preventDefault();
     let obj = event.target.getAttribute('data');
     obj = JSON.parse(obj);
-    props.setinvoicePageType({ type: 'Complete', data: obj });
+    props.setinvoiceContent({ type: 'Complete', data: obj });
   };
   const CreateInvoiceList = () => {
     let content = invoiceList.map((element, index) => {

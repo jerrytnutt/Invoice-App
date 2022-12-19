@@ -17,8 +17,7 @@ function MainContent() {
   const dispatch = useDispatch();
 
   const mainPageContent = useSelector((state) => state.mainPageContent.value);
-  const userData = useSelector((state) => state.userData.value);
-  console.log(userData);
+  //const userData = useSelector((state) => state.userData.value);
 
   const renderSwitch = (parm) => {
     switch (parm) {
@@ -56,25 +55,10 @@ function MainContent() {
             // add to state.
             dispatch(invoiceList.setinvoiceData(docSnap.data().Invoices));
             dispatch(userDataActions.setUserData(docSnap.data().userData));
-          } else {
-            // await setDoc(doc(db, 'users', user.uid), {
-            //   Invoices: [],
-            //  userData: {
-            //    userName: 'Company Name',
-            //   userID: user.uid,
-            //   companyName: '',
-            //  companyAddress: '',
-            //  companyEmail: '',
-            //  },
-            // });
-            // can be changed to empty later
           }
         };
 
         return getDataForUser();
-      } else {
-        dispatch(invoiceList.resetData());
-        dispatch(userDataActions.resetUserData());
       }
     });
   }, [dispatch]);

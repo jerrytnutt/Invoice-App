@@ -9,11 +9,12 @@ import { db } from '../../fireData/firebase-config';
 import { doc, setDoc } from 'firebase/firestore';
 
 function SignInInput(props) {
+  const [errorMessage, seterrorMessage] = useState(null);
   const [returningUser, setreturningUser] = useState(true);
   const dispatch = useDispatch();
 
   const createNewAccount = (username, email, password) => {
-    console.log(email);
+    //console.log(email);
     createUser(auth, email, password)
       .then((userCredential) => {
         //all the data you need for your new account is set here.
@@ -40,19 +41,10 @@ function SignInInput(props) {
       })
       .catch((error) => {
         // error
-        console.log(error);
+        seterrorMessage(error.message);
       });
   };
-  const signInExistingAccount = (email, password) => {
-    signInUser(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        // ...
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(event.target.checkValidity());
@@ -60,21 +52,29 @@ function SignInInput(props) {
     let username = event.target[1].value;
     let email = event.target[2].value;
     let password = event.target[3].value;
-
+    // Dont activate when you receive an error message
     props.setshowSignInInput(false);
+    ///
     if (returningUser) {
       console.log(event.target[1].value);
       console.log(event.target[2].value);
-      return signInExistingAccount(
-        event.target[1].value,
-        event.target[2].value
-      );
+      return signInUser(auth, event.target[1].value, event.target[2].value)
+        .then((userCredential) => {
+          // Signed in
+          // ...
+        })
+        .catch((error) => {
+          seterrorMessage(error.message);
+        });
     }
+
     return createNewAccount(username, email, password);
   };
   const UsernameInput = () => {
     let content = (
       <Form.Group className="mb-3" controlId="formBasicuserName">
+        <Form.Label className="topTitle">Create Account</Form.Label>
+        <br></br>
         <Form.Label>Username</Form.Label>
         <Form.Control
           required
@@ -97,7 +97,13 @@ function SignInInput(props) {
       >
         x
       </button>
-      {returningUser ? null : <UsernameInput />}
+      {errorMessage ? <p className="errorMessage">{errorMessage}</p> : null}
+      {returningUser ? (
+        <Form.Label className="topTitle">Sign In</Form.Label>
+      ) : (
+        <UsernameInput />
+      )}
+
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control
@@ -106,9 +112,6 @@ function SignInInput(props) {
           placeholder="Enter email"
           autoComplete="on"
         />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -121,13 +124,15 @@ function SignInInput(props) {
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Button
-          onClick={() => {
-            return setreturningUser(false);
-          }}
-        >
-          New User?
-        </Button>
+        {returningUser ? (
+          <Button
+            onClick={() => {
+              return setreturningUser(false);
+            }}
+          >
+            New User?
+          </Button>
+        ) : null}
       </Form.Group>
       <Button variant="success" type="submit">
         Submit

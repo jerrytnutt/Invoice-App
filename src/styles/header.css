@@ -13,23 +13,29 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 130px;
-  padding-bottom: 5px;
-  border-radius: 15px;
+  font-family: Cambria, Cochin, Georgia, Times;
+  border-radius: 5px;
   border: 0;
-  font-size: 2rem;
+  font-size: 1.2rem;
   color: white;
-  background-color: rgb(89, 80, 216);
+  background-color: #0d6efd;
 }
 .signAndLogButtons p {
   position: relative;
-  top: 12px;
-  font-size: 1.2rem;
-  font-weight: 400;
+  margin-right: 5px;
+  top: 5px;
 }
+.signAndLogButtons svg {
+  position: relative;
+  margin-right: 5px;
+  top: 5px;
+  font-size: 1.5rem;
+}
+
 .sideBarCloseIcon {
   position: relative;
   font-size: 2rem;
+  background-color: red;
 }
 
 .sideBarCloseIcon svg {
