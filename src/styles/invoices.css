@@ -42,3 +42,6 @@ td {
 #openLink:hover {
   cursor: pointer;
 }
+#set {
+  color: red;
+}

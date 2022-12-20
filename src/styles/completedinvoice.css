@@ -4,19 +4,18 @@
   align-items: center;
   border: 1px solid red;
   height: 100vh;
-  padding: 5px;
+  width: 100%;
 }
 .outer header {
   background-color: rgb(56, 56, 77);
-  width: 60%;
+  width: 70%;
 }
 .paidInfo {
   display: flex;
   flex-direction: row;
   align-items: center;
-  line-height: normal;
-  padding: 5px;
 
+  padding: 5px;
   background-color: rgba(200, 169, 44, 0.5);
 }
 .paidInfo p,
@@ -24,20 +23,16 @@
   position: relative;
   top: 10px;
   margin-left: 5px;
-  font-size: 1.1rem;
+
   font-weight: 500;
 }
-.paidInfo .ball,
-.paidTrue .ball {
-  font-size: 1.2rem;
-}
+
 .paidTrue {
   display: flex;
   flex-direction: row;
   align-items: center;
   line-height: normal;
   padding: 5px;
-
   background-color: rgba(78, 200, 44, 0.5);
 }
 .completedInvoiceContainer {

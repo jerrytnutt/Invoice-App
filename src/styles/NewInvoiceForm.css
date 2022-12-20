@@ -9,7 +9,7 @@
   background-color: rgb(56, 56, 77);
 
   padding: 20px;
-  width: 60%;
+  width: 80%;
 }
 .gridForm input {
   min-width: 200px;
@@ -34,6 +34,7 @@
 }
 label {
   color: rgb(175, 170, 188);
-  font-size: 1.2rem;
+
   font-weight: 600;
+  margin: 5px;
 }

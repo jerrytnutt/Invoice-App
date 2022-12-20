@@ -16,17 +16,56 @@ function CompletedInvoice(props) {
 
   const invoiceData = props.invoiceContent.data;
   const payment = invoiceData.paidStatus;
+  let invoiceNumber = invoiceData.invoicenumber;
   console.log(invoice);
   //console.log(payment);
+  const dataSwap = async (newInvoiceList) => {
+    const dataRef = doc(db, 'users', userId);
+
+    await updateDoc(dataRef, {
+      Invoices: newInvoiceList,
+    });
+    dispatch(invoiceList.setinvoiceData(newInvoiceList));
+  };
+
+  const deleteElement = (id) => {
+    let newInvoiceList = invoice.map((item) => {
+      if (item.invoicenumber > id) {
+        let invoicenumber = item.invoicenumber - 1;
+
+        return { ...item, invoicenumber };
+      } else {
+        return { ...item };
+      }
+    });
+
+    newInvoiceList.splice(id - 1, 1);
+
+    return dataSwap(newInvoiceList);
+  };
+
+  const changepaidStatus = (id) => {
+    let newInvoiceList = invoice.map((item) => {
+      if (item.invoicenumber === id) {
+        let paidStatus = !item.paidStatus;
+        return { ...item, paidStatus };
+      } else {
+        return { ...item };
+      }
+    });
+
+    return dataSwap(newInvoiceList);
+  };
+  //newInvoiceList = changepaidStatus(invoiceNumber);
+
+  /*
   const editCurrentInvoice = (arg) => {
     let invoiceNumber = invoiceData.invoicenumber;
     let newInvoiceList = invoice;
     if (arg === 'delete') {
-      const updateAge = (id) => {
+      const deleteElement = (id) => {
         let newList = invoice.map((item) => {
-          if (item.invoicenumber === id) {
-            return item;
-          } else if (item.invoicenumber > id) {
+          if (item.invoicenumber > id) {
             let invoicenumber = item.invoicenumber - 1;
 
             return { ...item, invoicenumber };
@@ -39,9 +78,10 @@ function CompletedInvoice(props) {
 
         return newList;
       };
-      newInvoiceList = updateAge(invoiceNumber);
+      newInvoiceList = deleteElement(invoiceNumber);
+      //
     } else if (arg === 'payment') {
-      const updateAge = (id) => {
+      const changepaidStatus = (id) => {
         let newList = invoice.map((item) => {
           if (item.invoicenumber === id) {
             let paidStatus = !item.paidStatus;
@@ -53,7 +93,7 @@ function CompletedInvoice(props) {
 
         return newList;
       };
-      newInvoiceList = updateAge(invoiceNumber);
+      newInvoiceList = changepaidStatus(invoiceNumber);
 
       //newInvoiceList.splice(invoiceNumber, 1, newInvoice);
     }
@@ -69,6 +109,7 @@ function CompletedInvoice(props) {
     // search(invoiceNum, newInvoiceList);
     dataSwap();
   };
+  */
   const PaymentButton = () => {
     let content = null;
     if (payment) {
@@ -111,14 +152,14 @@ function CompletedInvoice(props) {
           <Button
             variant="danger"
             onClick={() => {
-              return editCurrentInvoice('delete');
+              return deleteElement(invoiceNumber);
             }}
           >
             Delete
           </Button>
           <button
             onClick={() => {
-              return editCurrentInvoice('payment');
+              return changepaidStatus(invoiceNumber);
             }}
           >
             Mark as Paid
