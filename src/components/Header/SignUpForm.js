@@ -1,4 +1,4 @@
-import '../../styles/signInSheet.css';
+import '../../styles/SignUpForm.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
@@ -14,10 +14,8 @@ function SignInInput(props) {
   const dispatch = useDispatch();
 
   const createNewAccount = (username, email, password) => {
-    //console.log(email);
     createUser(auth, email, password)
       .then((userCredential) => {
-        //all the data you need for your new account is set here.
         setDoc(doc(db, 'users', userCredential.user.uid), {
           Invoices: [],
           userData: {
@@ -38,6 +36,7 @@ function SignInInput(props) {
             companyEmail: '',
           })
         );
+        props.setshowSignInInput(false);
       })
       .catch((error) => {
         // error
@@ -47,20 +46,10 @@ function SignInInput(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target.checkValidity());
-
-    let username = event.target[1].value;
-    let email = event.target[2].value;
-    let password = event.target[3].value;
-    // Dont activate when you receive an error message
-    props.setshowSignInInput(false);
-    ///
     if (returningUser) {
-      console.log(event.target[1].value);
-      console.log(event.target[2].value);
       return signInUser(auth, event.target[1].value, event.target[2].value)
         .then((userCredential) => {
-          // Signed in
+          props.setshowSignInInput(false);
           // ...
         })
         .catch((error) => {
@@ -68,6 +57,9 @@ function SignInInput(props) {
         });
     }
 
+    let username = event.target[1].value;
+    let email = event.target[2].value;
+    let password = event.target[3].value;
     return createNewAccount(username, email, password);
   };
   const UsernameInput = () => {
@@ -88,56 +80,59 @@ function SignInInput(props) {
   };
   // Same user name is allowed but same email is not.
   return (
-    <Form className="fourm" onSubmit={handleSubmit}>
-      <button
-        className="closeButton"
-        onClick={() => {
-          props.setshowSignInInput(false);
-        }}
-      >
-        x
-      </button>
-      {errorMessage ? <p className="errorMessage">{errorMessage}</p> : null}
-      {returningUser ? (
-        <Form.Label className="topTitle">Sign In</Form.Label>
-      ) : (
-        <UsernameInput />
-      )}
-
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control
-          required
-          type="email"
-          placeholder="Enter email"
-          autoComplete="on"
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          required
-          type="password"
-          placeholder="Password"
-          autoComplete="on"
-        />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+    <div>
+      <div className="formBackground"></div>
+      <Form className="form" onSubmit={handleSubmit}>
+        <button
+          className="closeButton"
+          onClick={() => {
+            props.setshowSignInInput(false);
+          }}
+        >
+          X
+        </button>
+        {errorMessage ? <p className="errorMessage">{errorMessage}</p> : null}
         {returningUser ? (
-          <Button
-            onClick={() => {
-              return setreturningUser(false);
-            }}
-          >
-            New User?
-          </Button>
-        ) : null}
-      </Form.Group>
-      <Button variant="success" type="submit">
-        Submit
-      </Button>
-    </Form>
+          <Form.Label className="topTitle">Sign In</Form.Label>
+        ) : (
+          <UsernameInput />
+        )}
+
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            required
+            type="email"
+            placeholder="Enter email"
+            autoComplete="on"
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            required
+            type="password"
+            placeholder="Password"
+            autoComplete="on"
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          {returningUser ? (
+            <Button
+              onClick={() => {
+                return setreturningUser(false);
+              }}
+            >
+              New User?
+            </Button>
+          ) : null}
+        </Form.Group>
+        <Button variant="success" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </div>
   );
 }
 

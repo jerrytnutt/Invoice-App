@@ -1,34 +1,44 @@
 .invoiceContainer {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  border: 1px solid red;
   background-color: rgb(46, 46, 57);
-  padding: 5px;
 }
-.containerHeader {
+.invoiceHeader {
   display: flex;
   justify-content: space-between;
-
+  width: 80%;
   padding: 5px;
-
-  background-color: rgb(56, 56, 77);
 }
-.containerHeader p {
+.invoiceHeader p {
   color: white;
   font-weight: 500;
   font-size: 2.2rem;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow';
 }
-.invoiceList {
-  height: 100vh;
-}
-.buttonContainer {
+
+.invoiceHeaderButtons {
   display: flex;
   flex-wrap: wrap;
 }
-.newButton {
+.newInvoiceButton {
   padding: 10px;
-  font-size: 0.9rem;
   border: 0;
-  color: white;
-  background-color: rgb(28, 28, 33);
+  color: rgba(255, 255, 255, 0.55);
+  background-color: rgb(33, 37, 41);
+}
+.invoiceTableContainer {
+  height: 100vh;
+  width: 80%;
+}
+
+td {
+  font-size: 1.2rem;
+}
+#openLink {
+  text-align: center;
+}
+#openLink:hover {
+  cursor: pointer;
 }

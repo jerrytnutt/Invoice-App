@@ -1,5 +1,5 @@
 import '../../styles/header.css';
-import SignInInput from './signInInput';
+import SignUpForm from './SignUpForm';
 import { sidebarVisibility } from '../../features/sidebarvisibility';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,7 +19,7 @@ function Header() {
   const dispatch = useDispatch();
 
   const HideSidebarButton = () => {
-    if (visibility !== 'sidebarVisible') {
+    if (visibility === 'sidebarHidden') {
       return (
         <BsFillArrowRightSquareFill
           onClick={() => {
@@ -30,7 +30,7 @@ function Header() {
     }
   };
 
-  const SignUpandLogOutButtons = () => {
+  const SignInandLogOutButtons = () => {
     let content = (
       <button
         onClick={() => {
@@ -68,15 +68,15 @@ function Header() {
   };
   return (
     <header>
-      <div className="signAndLogButtons">
-        <SignUpandLogOutButtons />
+      <div className="signInAndLogButtons">
+        <SignInandLogOutButtons />
       </div>
       <div className="sideBarCloseIcon">
         <HideSidebarButton />
       </div>
 
       {showSignInInput ? (
-        <SignInInput setshowSignInInput={setshowSignInInput} />
+        <SignUpForm setshowSignInInput={setshowSignInInput} />
       ) : null}
     </header>
   );

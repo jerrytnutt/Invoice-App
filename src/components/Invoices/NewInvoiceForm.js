@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import '../../styles/invoiceGridTemplate.css';
+import '../../styles/NewInvoiceForm.css';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { invoiceList } from '../../features/invoicelist';
@@ -91,7 +91,7 @@ function NewInvoiceForm(props) {
   };
 
   return (
-    <div className="outerGrid">
+    <div className="newInvoiceOuter">
       <Form className="gridForm" onSubmit={handleSubmit}>
         <button
           className="closeX"

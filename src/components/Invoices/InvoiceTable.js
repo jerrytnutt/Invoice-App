@@ -1,5 +1,6 @@
 import Table from 'react-bootstrap/Table';
 import { useSelector } from 'react-redux';
+import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 
 function InvoiceTable(props) {
   const invoiceList = useSelector((state) => state.invoiceList.value);
@@ -13,14 +14,16 @@ function InvoiceTable(props) {
   const CreateInvoiceList = () => {
     let content = invoiceList.map((element, index) => {
       let data = JSON.stringify(element);
+      console.log(element);
 
       return (
         <tr key={index}>
-          <td>{element.invoicenumber}</td>
-          <td>{element.dates.invoice}</td>
-          <td>{element.customer.name}</td>
-          <td data={data} onClick={handleClick}>
-            {element.service.amount}
+          <td>#{element.invoicenumber}</td>
+          <td>Due: {element.dates.due}</td>
+          <td>{element.customer.name} Taylor</td>
+          <td data={data}>${element.service.amount}</td>
+          <td id="openLink" data={data} onClick={handleClick}>
+            <BsFillArrowRightCircleFill />
           </td>
         </tr>
       );
@@ -29,14 +32,6 @@ function InvoiceTable(props) {
   };
   return (
     <Table striped bordered hover variant="dark">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Date</th>
-          <th>Full Name</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
       <CreateInvoiceList />
     </Table>
   );

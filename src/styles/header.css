@@ -3,39 +3,37 @@ header {
   flex-direction: row-reverse;
   justify-content: space-between;
   color: white;
-  background-color: rgb(125, 123, 123);
+  background-color: rgb(42, 42, 46);
 }
-.signAndLogButtons {
-  margin: 5px;
+.signInAndLogButtons {
+  margin-top: 5px;
+  margin-right: 5px;
   padding: 0px;
 }
-.signAndLogButtons button {
+.signInAndLogButtons button {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   font-family: Cambria, Cochin, Georgia, Times;
   border-radius: 5px;
-  border: 0;
   font-size: 1.2rem;
+  border: 1px solid #1b4a92;
   color: white;
-  background-color: #0d6efd;
+  background-color: #1b4a92;
 }
-.signAndLogButtons p {
+.signInAndLogButtons p {
+  position: relative;
+  top: 6px;
+}
+.signInAndLogButtons svg {
   position: relative;
   margin-right: 5px;
   top: 5px;
-}
-.signAndLogButtons svg {
-  position: relative;
-  margin-right: 5px;
-  top: 5px;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .sideBarCloseIcon {
   position: relative;
   font-size: 2rem;
-  background-color: red;
 }
 
 .sideBarCloseIcon svg {

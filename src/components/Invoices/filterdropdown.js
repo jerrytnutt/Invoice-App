@@ -41,7 +41,7 @@ function FilterDropDown() {
           <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title="Dropdown"
+              title="Filter"
               menuVariant="dark"
             >
               <NavDropdown.Item onClick={handleClick} href="#action/3.1">

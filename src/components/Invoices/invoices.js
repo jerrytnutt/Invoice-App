@@ -1,10 +1,10 @@
 import '../../styles/invoices.css';
 import { useState } from 'react';
-
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 import FilterDropDown from './filterdropdown';
 import NewInvoiceForm from './NewInvoiceForm';
 import CompletedinvoicePage from './CompletedInvoice';
-import DarkInvoiceTable from './InvoiceTable';
+import InvoiceTable from './InvoiceTable';
 function Invoices() {
   const [invoiceContent, setinvoiceContent] = useState({
     type: null,
@@ -33,12 +33,12 @@ function Invoices() {
   }
   return (
     <div className="invoiceContainer">
-      <div className="containerHeader">
+      <div className="invoiceHeader">
         <p>Invoices</p>
-        <div className="buttonContainer">
+        <div className="invoiceHeaderButtons">
           <FilterDropDown />
           <button
-            className="newButton"
+            className="newInvoiceButton"
             onClick={() => {
               setinvoiceContent({
                 type: 'New',
@@ -46,12 +46,12 @@ function Invoices() {
               });
             }}
           >
-            New Invoice Button
+            New <AiOutlinePlusCircle />
           </button>
         </div>
       </div>
-      <div className="invoiceList">
-        <DarkInvoiceTable setinvoiceContent={setinvoiceContent} />
+      <div className="invoiceTableContainer">
+        <InvoiceTable setinvoiceContent={setinvoiceContent} />
       </div>
     </div>
   );

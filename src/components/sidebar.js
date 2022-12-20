@@ -71,7 +71,6 @@ function Sidebar() {
             onClick={() => {
               dispatch(mainPageContent.setmainPageContent('account'));
             }}
-            href="#home"
           >
             Account
           </h3>

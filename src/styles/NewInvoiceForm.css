@@ -1,10 +1,7 @@
-.outerGrid {
+.newInvoiceOuter {
   display: flex;
   flex-direction: row;
   justify-content: center;
-
-  padding: 5px;
-  width: 100%;
 }
 
 .gridForm {
@@ -13,6 +10,9 @@
 
   padding: 20px;
   width: 60%;
+}
+.gridForm input {
+  min-width: 200px;
 }
 .closeX {
   position: absolute;
