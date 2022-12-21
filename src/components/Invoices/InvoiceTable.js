@@ -13,7 +13,7 @@ function InvoiceTable(props) {
 
     props.setinvoiceContent({ type: 'Complete', data: obj });
   };
-  const CreateInvoiceList = () => {
+  const CreateInvoiceLis = () => {
     let content = invoiceList.map((element, index) => {
       let data = JSON.stringify(element);
 
@@ -33,7 +33,19 @@ function InvoiceTable(props) {
   };
   return (
     <Table striped bordered hover variant="dark">
-      <CreateInvoiceList />
+      {invoiceList.map((element, index) => (
+        <tbody key={index}>
+          <tr>
+            <td>#{element.invoicenumber}</td>
+            <td>Due: {element.dates.due}</td>
+            <td>{element.customer.name} Taylor</td>
+            <td>${element.service.amount}</td>
+            <td data={JSON.stringify(element)} onClick={handleClick}>
+              <BsFillArrowRightCircleFill id="set" />
+            </td>
+          </tr>
+        </tbody>
+      ))}
     </Table>
   );
 }

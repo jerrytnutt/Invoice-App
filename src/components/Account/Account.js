@@ -1,6 +1,7 @@
 import '../../styles/account.css';
 import { useState } from 'react';
-import AccountPageInput from './AccountPageEditor';
+
+import UserInfoDisplay from './UserInfoDisplay';
 import { useSelector, useDispatch } from 'react-redux';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../fireData/firebase-config';
@@ -13,6 +14,8 @@ function Account() {
   const user = useSelector((state) => state.userData.value);
 
   const updateUserInfo = async (data) => {
+    console.log(data);
+
     const newUserData = {
       userName: user.userName,
       userID: user.userID,
@@ -22,6 +25,7 @@ function Account() {
     };
 
     const dataRef = doc(db, 'users', user.userID);
+
     await updateDoc(dataRef, {
       userData: newUserData,
     });
@@ -31,23 +35,7 @@ function Account() {
   const handleClick = () => {
     return seteditUserInfo(!editUserInfo);
   };
-  const UserInfoDisplay = () => {
-    let content = (
-      <div>
-        <p>{user.companyName}</p>
-        <p>{user.companyEmail}</p>
-        <p>{user.companyAddress}</p>
-      </div>
-    );
-    if (editUserInfo) {
-      content = (
-        <div>
-          <AccountPageInput updateUserInfo={updateUserInfo} />
-        </div>
-      );
-    }
-    return <div className="accountFinal">{content}</div>;
-  };
+
   return (
     <div className="outerPage">
       <div className="accountTabs">
@@ -58,7 +46,11 @@ function Account() {
           <p>Company Name</p>
           <p>Company Address</p>
         </div>
-        <UserInfoDisplay />
+        <UserInfoDisplay
+          editUserInfo={editUserInfo}
+          user={user}
+          updateUserInfo={updateUserInfo}
+        />
       </div>
       <div className="accountTabs">
         <div className="accountLeft"></div>

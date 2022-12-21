@@ -1,8 +1,8 @@
 import '../../styles/completedinvoice.css';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import PaymentButton from './PaymentButton';
 
-import { BsCircleFill } from 'react-icons/bs';
 import { useSelector, useDispatch } from 'react-redux';
 import { invoiceList } from '../../features/invoicelist';
 import { doc, updateDoc } from 'firebase/firestore';
@@ -56,83 +56,6 @@ function CompletedInvoice(props) {
 
     return dataSwap(newInvoiceList);
   };
-  //newInvoiceList = changepaidStatus(invoiceNumber);
-
-  /*
-  const editCurrentInvoice = (arg) => {
-    let invoiceNumber = invoiceData.invoicenumber;
-    let newInvoiceList = invoice;
-    if (arg === 'delete') {
-      const deleteElement = (id) => {
-        let newList = invoice.map((item) => {
-          if (item.invoicenumber > id) {
-            let invoicenumber = item.invoicenumber - 1;
-
-            return { ...item, invoicenumber };
-          } else {
-            return { ...item };
-          }
-        });
-
-        newList.splice(id - 1, 1);
-
-        return newList;
-      };
-      newInvoiceList = deleteElement(invoiceNumber);
-      //
-    } else if (arg === 'payment') {
-      const changepaidStatus = (id) => {
-        let newList = invoice.map((item) => {
-          if (item.invoicenumber === id) {
-            let paidStatus = !item.paidStatus;
-            return { ...item, paidStatus };
-          } else {
-            return { ...item };
-          }
-        });
-
-        return newList;
-      };
-      newInvoiceList = changepaidStatus(invoiceNumber);
-
-      //newInvoiceList.splice(invoiceNumber, 1, newInvoice);
-    }
-
-    const dataSwap = async () => {
-      const dataRef = doc(db, 'users', userId);
-
-      await updateDoc(dataRef, {
-        Invoices: newInvoiceList,
-      });
-      dispatch(invoiceList.setinvoiceData(newInvoiceList));
-    };
-    // search(invoiceNum, newInvoiceList);
-    dataSwap();
-  };
-  */
-  const PaymentButton = () => {
-    let content = null;
-    if (payment) {
-      content = (
-        <div className="paidTrue">
-          <div className="ball">
-            <BsCircleFill />
-          </div>
-          <p>Paid</p>
-        </div>
-      );
-    } else {
-      content = (
-        <div className="paidInfo">
-          <div className="ball">
-            <BsCircleFill />
-          </div>
-          <p>Pending</p>
-        </div>
-      );
-    }
-    return <div>{content}</div>;
-  };
 
   return (
     <div className="outer">
@@ -165,7 +88,7 @@ function CompletedInvoice(props) {
             Mark as Paid
           </button>
         </div>
-        <PaymentButton />
+        <PaymentButton payment={payment} />
       </header>
       <div className="completedInvoiceContainer">
         <button

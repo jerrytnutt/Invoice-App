@@ -16,9 +16,10 @@ function AccountPageInput(props) {
 
     props.updateUserInfo(formProps);
   };
-  const EditorNumber = () => {
-    let content = (
-      <div>
+
+  return (
+    <div>
+      {true ? (
         <Form onSubmit={handleSubmit}>
           <Row className="mb-3">
             <Form.Group as={Col} controlId="companyName">
@@ -39,21 +40,12 @@ function AccountPageInput(props) {
             Submit
           </Button>
         </Form>
-      </div>
-    );
-    if (false) {
-      content = (
-        <div>
+      ) : (
+        <>
           <p>Company Name</p>
           <p>Company Address true</p>
-        </div>
-      );
-    }
-    return <div>{content}</div>;
-  };
-  return (
-    <div>
-      <EditorNumber />
+        </>
+      )}
     </div>
   );
 }
