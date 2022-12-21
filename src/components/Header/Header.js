@@ -17,62 +17,48 @@ function Header() {
   const userName = useSelector((state) => state.userData.value.userName);
 
   const dispatch = useDispatch();
-
-  const HideSidebarButton = () => {
-    if (visibility === 'sidebarHidden') {
-      return (
-        <BsFillArrowRightSquareFill
-          onClick={() => {
-            dispatch(sidebarVisibility.setsidebarData('sidebarVisible'));
-          }}
-        />
-      );
-    }
+  const signOut = () => {
+    signOutUser(auth)
+      .then(() => {
+        dispatch(invoiceList.resetData());
+        dispatch(userDataActions.resetUserData());
+      })
+      .catch((error) => {
+        // An error happened.
+      });
   };
 
-  const SignInandLogOutButtons = () => {
-    let content = (
-      <button
-        onClick={() => {
-          setshowSignInInput(true);
-        }}
-      >
-        <div>
-          <RiAccountCircleLine />
-        </div>
-        <p>Sign Up</p>
-      </button>
-    );
-    if (userName) {
-      content = (
-        <button
-          onClick={() => {
-            signOutUser(auth)
-              .then(() => {
-                dispatch(invoiceList.resetData());
-                dispatch(userDataActions.resetUserData());
-              })
-              .catch((error) => {
-                // An error happened.
-              });
-          }}
-        >
-          <div>
-            <BsFillArrowRightSquareFill />
-          </div>
-          <p>Log Out</p>
-        </button>
-      );
-    }
-    return <div>{content}</div>;
-  };
   return (
     <header>
       <div className="signInAndLogButtons">
-        <SignInandLogOutButtons />
+        {userName ? (
+          <button onClick={signOut}>
+            <div>
+              <BsFillArrowRightSquareFill />
+            </div>
+            <p>Log Out</p>
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              setshowSignInInput(true);
+            }}
+          >
+            <div>
+              <RiAccountCircleLine />
+            </div>
+            <p>Sign Up</p>
+          </button>
+        )}
       </div>
       <div className="sideBarCloseIcon">
-        <HideSidebarButton />
+        {visibility === 'sidebarHidden' ? (
+          <BsFillArrowRightSquareFill
+            onClick={() => {
+              dispatch(sidebarVisibility.setsidebarData('sidebarVisible'));
+            }}
+          />
+        ) : null}
       </div>
 
       {showSignInInput ? (

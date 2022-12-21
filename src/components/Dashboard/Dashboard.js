@@ -1,21 +1,18 @@
 import '../../styles/dashboard.css';
-import { FaFileInvoiceDollar } from 'react-icons/fa';
+import Progress from './progress';
 import { MdAccountBox } from 'react-icons/md';
-import { MdSpaceDashboard } from 'react-icons/md';
 
 function Dashboard() {
   return (
     <div className="dashboard">
-      <div>
-        <p>Dashboard</p>
-        <MdSpaceDashboard fontSize="100px" />
-      </div>
-      <div>
+      <div className="dashTab">
         <p>Invoices</p>
-        <FaFileInvoiceDollar fontSize="100px" />
+        <p>Paid vs Pending</p>
+        <Progress />
       </div>
-      <div>
+      <div className="dashTab">
         <p>Account</p>
+
         <MdAccountBox fontSize="100px" />
       </div>
     </div>
