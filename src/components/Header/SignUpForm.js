@@ -14,6 +14,7 @@ function SignInInput(props) {
   const dispatch = useDispatch();
 
   const createNewAccount = (username, email, password) => {
+    console.log('u', username, 'e', email, 'p', password);
     createUser(auth, email, password)
       .then((userCredential) => {
         setDoc(doc(db, 'users', userCredential.user.uid), {
@@ -57,9 +58,9 @@ function SignInInput(props) {
         });
     }
 
-    let username = event.target[1].value;
-    let email = event.target[2].value;
-    let password = event.target[3].value;
+    let username = event.target[2].value;
+    let email = event.target[3].value;
+    let password = event.target[4].value;
     return createNewAccount(username, email, password);
   };
   const UsernameInput = () => {
@@ -83,6 +84,11 @@ function SignInInput(props) {
     <div>
       <div className="formBackground"></div>
       <Form className="form" onSubmit={handleSubmit}>
+        <h3>Explore site's features in Demo mode</h3>
+        <Button variant="success" type="submit">
+          Demo
+        </Button>
+        <br></br>
         <button
           className="closeButton"
           onClick={() => {

@@ -1,6 +1,6 @@
 import '../styles/main.css';
 import Header from './Header/Header';
-import Dashboard from './Dashboard/Dashboard';
+
 import Invoices from './Invoices/invoices';
 import Account from './Account/Account';
 
@@ -36,7 +36,7 @@ function MainContent() {
       default:
         return (
           <div>
-            <Dashboard />
+            <Invoices />
           </div>
         );
     }

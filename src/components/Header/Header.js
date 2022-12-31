@@ -11,7 +11,7 @@ import { invoiceList } from '../../features/invoicelist';
 import { auth, signOutUser } from '../../fireData/firebase-config';
 
 function Header() {
-  const [showSignInInput, setshowSignInInput] = useState(false);
+  const [showSignInInput, setshowSignInInput] = useState(true);
   const visibility = useSelector((state) => state.sidebarvisibility.value);
 
   const userName = useSelector((state) => state.userData.value.userName);

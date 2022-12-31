@@ -1,6 +1,6 @@
 import '../styles/sidebar.css';
 import { BsFillArrowLeftSquareFill } from 'react-icons/bs';
-import { MdDashboard } from 'react-icons/md';
+
 import { FaFileInvoiceDollar } from 'react-icons/fa';
 import { MdAccountBox } from 'react-icons/md';
 
@@ -41,19 +41,6 @@ function Sidebar() {
       </div>
 
       <div className="tabContainer">
-        <div>
-          <h3
-            onClick={() => {
-              dispatch(mainPageContent.setmainPageContent('dashboard'));
-            }}
-          >
-            Dashboard
-          </h3>
-
-          <div className="tabIcon">
-            <MdDashboard />
-          </div>
-        </div>
         <div>
           <h3
             onClick={() => {
