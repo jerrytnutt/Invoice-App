@@ -15,6 +15,7 @@ function NewInvoiceForm(props) {
   const dispatch = useDispatch();
 
   const previousInvoice = props.invoiceContent.data;
+  console.log(previousInvoice);
 
   const getLength = (obj) => {
     return Object.keys(obj).length === 0;
@@ -72,10 +73,26 @@ function NewInvoiceForm(props) {
     let copyInvoice = invoice.slice();
 
     if (!creatingNewInvoice) {
+      // When I filter Or add new I must
       const location = previousInvoice.invoicenumber - 1;
+      // console.log(location);
+      // const location = copyInvoice.findIndex((object) => {
+      // return object.invoicenumber === previousInvoice.invoicenumber;
+      // });
+      //console.log(ind);
       copyInvoice[location] = creatingNewInvoiceObject;
     } else {
       copyInvoice = copyInvoice.concat([creatingNewInvoiceObject]);
+      copyInvoice = copyInvoice.sort(
+        (a, b) =>
+          parseFloat(a.service['amount']) - parseFloat(b.service['amount'])
+      );
+      let i = 1;
+      copyInvoice = copyInvoice.map((item) => {
+        let invoicenumber = i;
+        i = i + 1;
+        return { ...item, invoicenumber };
+      });
     }
 
     const dataRef = doc(db, 'users', userId);

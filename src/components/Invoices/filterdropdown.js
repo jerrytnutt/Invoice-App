@@ -5,22 +5,36 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useSelector, useDispatch } from 'react-redux';
 import { invoiceList } from '../../features/invoicelist';
 
-function FilterDropDown() {
+function FilterDropDown(props) {
   const dispatch = useDispatch();
   const invoice = useSelector((state) => state.invoiceList.value);
+  const sortData = (newInvoice) => {
+    let i = 1;
+    newInvoice = newInvoice.map((item) => {
+      let invoicenumber = i;
+      i = i + 1;
+      return { ...item, invoicenumber };
+    });
 
+    dispatch(invoiceList.setinvoiceData(newInvoice));
+  };
+  const sortNumeric = (arg) => {
+    let newInvoice = invoice.slice();
+    newInvoice = newInvoice.sort(
+      (a, b) => parseFloat(a.service[arg]) - parseFloat(b.service[arg])
+    );
+    //props.setfilterdArray(newInvoice);
+    return sortData(newInvoice);
+    //dispatch(invoiceList.setinvoiceData(newInvoice));
+  };
   const handleClick = () => {
     let newInvoice = invoice.slice();
-    console.log(invoice);
-    function compare(propName) {
-      return function (a, b) {
-        if (a[propName] < b[propName]) return -1;
-        if (a[propName] > b[propName]) return 1;
-        return 0;
-      };
-    }
 
-    newInvoice.sort(compare('invoicenumber'));
+    newInvoice = newInvoice.sort((a, b) => a.invoicenumber - b.invoicenumber);
+    props.setfilterdArray(newInvoice);
+    //newInvoice.sort(compare(arg));
+
+    //console.log(newInvoice);
     // Do I need to update the db with the swap? no.
     //const dataSwap = async () => {
     //const dataRef = doc(db, 'users', userId);
@@ -44,13 +58,25 @@ function FilterDropDown() {
               title="Filter"
               menuVariant="dark"
             >
-              <NavDropdown.Item onClick={handleClick} href="#action/3.1">
-                Action
+              <NavDropdown.Item
+                onClick={() => {
+                  sortNumeric('amount');
+                }}
+                href="#action/3.1"
+              >
+                Amount
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
+              <NavDropdown.Item
+                onClick={() => {
+                  sortNumeric('quantity');
+                }}
+                href="#action/3.2"
+              >
+                Quantity
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3" onClick={handleClick}>
+                Name
+              </NavDropdown.Item>
               <NavDropdown.Divider />
             </NavDropdown>
           </Nav>

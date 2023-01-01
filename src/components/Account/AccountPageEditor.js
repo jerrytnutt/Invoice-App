@@ -26,11 +26,7 @@ function AccountPageInput(props) {
               <Form.Control required name="companyName" type="name" />
             </Form.Group>
           </Row>
-          <Row className="mb-3">
-            <Form.Group as={Col} controlId="companyEmail">
-              <Form.Control required name="companyEmail" type="email" />
-            </Form.Group>
-          </Row>
+
           <Row className="mb-3">
             <Form.Group as={Col} controlId="companyAddress">
               <Form.Control required name="companyAddress" type="name" />

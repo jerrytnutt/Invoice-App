@@ -2,6 +2,7 @@ import '../../styles/account.css';
 import { useState } from 'react';
 
 import UserInfoDisplay from './UserInfoDisplay';
+import Progress from './progress';
 import { useSelector, useDispatch } from 'react-redux';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../fireData/firebase-config';
@@ -12,6 +13,7 @@ function Account() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.userData.value);
+  const invoiceData = useSelector((state) => state);
 
   const updateUserInfo = async (data) => {
     console.log(data);
@@ -21,7 +23,7 @@ function Account() {
       userID: user.userID,
       companyName: data.companyName,
       companyAddress: data.companyAddress,
-      companyEmail: data.companyEmail,
+      companyEmail: '',
     };
 
     const dataRef = doc(db, 'users', user.userID);
@@ -44,6 +46,7 @@ function Account() {
         </div>
         <div className="accountRight">
           <p>Company Name</p>
+
           <p>Company Address</p>
         </div>
         <UserInfoDisplay
@@ -53,7 +56,9 @@ function Account() {
         />
       </div>
       <div className="accountTabs">
-        <div className="accountLeft"></div>
+        <div className="accountLeft">
+          <Progress invoiceData={invoiceData} />
+        </div>
         <div className="accountRight"></div>
       </div>
       <button onClick={handleClick}></button>

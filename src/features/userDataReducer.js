@@ -3,8 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 let initialStateValue = {
   userName: false,
   userID: '',
-  userImg:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg/440px-Abraham_Lincoln_O-77_matte_collodion_print.jpg',
+
   companyName: '',
   companyAddress: '',
 

@@ -17,7 +17,7 @@ function CompletedInvoice(props) {
   const invoiceData = props.invoiceContent.data;
   const payment = invoiceData.paidStatus;
   let invoiceNumber = invoiceData.invoicenumber;
-  console.log(invoice);
+
   //console.log(payment);
   const dataSwap = async (newInvoiceList) => {
     const dataRef = doc(db, 'users', userId);
@@ -75,18 +75,23 @@ function CompletedInvoice(props) {
           <Button
             variant="danger"
             onClick={() => {
-              return deleteElement(invoiceNumber);
+              deleteElement(invoiceNumber);
+              return props.setinvoiceContent({
+                type: null,
+                data: {},
+              });
             }}
           >
             Delete
           </Button>
-          <button
+          <Button
+            variant="warning"
             onClick={() => {
               return changepaidStatus(invoiceNumber);
             }}
           >
-            Mark as Paid
-          </button>
+            Mark as {payment ? 'Unpaid' : 'Paid'}
+          </Button>
         </div>
         <PaymentButton payment={payment} />
       </header>

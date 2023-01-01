@@ -17,7 +17,6 @@ function MainContent() {
   const dispatch = useDispatch();
 
   const mainPageContent = useSelector((state) => state.mainPageContent.value);
-  //const userData = useSelector((state) => state.userData.value);
 
   const renderSwitch = (parm) => {
     switch (parm) {

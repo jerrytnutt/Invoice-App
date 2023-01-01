@@ -26,7 +26,6 @@ function SignInInput(props) {
           userData: {
             userName: username,
             userID: userCredential.user.uid,
-            userImg: '',
             companyName: '',
             companyAddress: '',
             companyEmail: '',
@@ -37,7 +36,7 @@ function SignInInput(props) {
           userDataActions.setUserData({
             userName: username,
             userID: userCredential.user.uid,
-            userImg: '',
+
             companyName: '',
             companyAddress: '',
             companyEmail: '',
@@ -53,8 +52,11 @@ function SignInInput(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    let email = event.target[2].value;
+    let password = event.target[3].value;
     if (returningUser) {
-      return signInUser(auth, event.target[1].value, event.target[2].value)
+      return signInUser(auth, email, password)
         .then((userCredential) => {
           props.setshowSignInInput(false);
           // ...
@@ -65,8 +67,8 @@ function SignInInput(props) {
     }
 
     let username = event.target[2].value;
-    let email = event.target[3].value;
-    let password = event.target[4].value;
+    email = event.target[3].value;
+    password = event.target[4].value;
     return createNewAccount(username, email, password);
   };
   const runDemoMode = () => {
