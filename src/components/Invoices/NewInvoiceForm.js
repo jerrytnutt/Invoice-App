@@ -10,16 +10,16 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../fireData/firebase-config';
 
 function NewInvoiceForm(props) {
+  const [dueDate, setdueDate] = useState('2023-12-12');
+  const [invoiceDate, setinvoiceDate] = useState('2023-12-12');
   const dispatch = useDispatch();
-  const [dueDate, setdueDate] = useState('1994-12-12');
-  const [invoiceDate, setinvoiceDate] = useState('1980-12-12');
 
-  const propsObject = props.invoiceContent.data;
+  const previousInvoice = props.invoiceContent.data;
 
   const getLength = (obj) => {
     return Object.keys(obj).length === 0;
   };
-  const newInvoice = getLength(propsObject);
+  const creatingNewInvoice = getLength(previousInvoice);
 
   const invoice = useSelector((state) => state.invoiceList.value);
   const userId = useSelector((state) => state.userData.value.userID);
@@ -33,9 +33,9 @@ function NewInvoiceForm(props) {
     let invoiceNumber = invoice.length + 1;
     let paidStatus = false;
 
-    if (!newInvoice) {
-      invoiceNumber = propsObject.invoicenumber;
-      paidStatus = propsObject.paidStatus;
+    if (!creatingNewInvoice) {
+      invoiceNumber = previousInvoice.invoicenumber;
+      paidStatus = previousInvoice.paidStatus;
 
       for (var key of Object.keys(formProps)) {
         if (formProps[key] === '') {
@@ -44,7 +44,7 @@ function NewInvoiceForm(props) {
       }
     }
 
-    const newInvoiceObject = {
+    const creatingNewInvoiceObject = {
       customer: {
         name: formProps.customerName,
         email: formProps.customerEmail,
@@ -69,21 +69,21 @@ function NewInvoiceForm(props) {
       paidStatus: paidStatus,
     };
 
-    let newInvoiceList = invoice.slice();
+    let copyInvoice = invoice.slice();
 
-    if (!newInvoice) {
-      const location = propsObject.invoicenumber - 1;
-      newInvoiceList[location] = newInvoiceObject;
+    if (!creatingNewInvoice) {
+      const location = previousInvoice.invoicenumber - 1;
+      copyInvoice[location] = creatingNewInvoiceObject;
     } else {
-      newInvoiceList = newInvoiceList.concat([newInvoiceObject]);
+      copyInvoice = copyInvoice.concat([creatingNewInvoiceObject]);
     }
 
     const dataRef = doc(db, 'users', userId);
 
     await updateDoc(dataRef, {
-      Invoices: newInvoiceList,
+      Invoices: copyInvoice,
     });
-    dispatch(invoiceList.setinvoiceData(newInvoiceList));
+    dispatch(invoiceList.setinvoiceData(copyInvoice));
     props.setinvoiceContent({
       type: null,
       data: {},
@@ -110,22 +110,26 @@ function NewInvoiceForm(props) {
           <Form.Group as={Col} controlId="customerName">
             <Form.Label>Full Name</Form.Label>
             <Form.Control
-              required={newInvoice}
+              required={creatingNewInvoice}
               name="customerName"
               type="name"
               placeholder={
-                newInvoice ? 'Enter Full Name' : propsObject.customer.name
+                creatingNewInvoice
+                  ? 'Enter Full Name'
+                  : previousInvoice.customer.name
               }
             />
           </Form.Group>
           <Form.Group as={Col} controlId="customerEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control
-              required={newInvoice}
+              required={creatingNewInvoice}
               name="customerEmail"
               type="email"
               placeholder={
-                newInvoice ? 'Enter Email' : propsObject.customer.email
+                creatingNewInvoice
+                  ? 'Enter Email'
+                  : previousInvoice.customer.email
               }
             />
           </Form.Group>
@@ -136,11 +140,13 @@ function NewInvoiceForm(props) {
           <Form.Group as={Col} controlId="billtoName">
             <Form.Label>Full Name</Form.Label>
             <Form.Control
-              required={newInvoice}
+              required={creatingNewInvoice}
               name="billtoName"
               type="name"
               placeholder={
-                newInvoice ? 'Enter Full Name' : propsObject.billto.name
+                creatingNewInvoice
+                  ? 'Enter Full Name'
+                  : previousInvoice.billto.name
               }
             />
           </Form.Group>
@@ -148,35 +154,38 @@ function NewInvoiceForm(props) {
           <Form.Group as={Col} controlId="billtoAddress1">
             <Form.Label>Address</Form.Label>
             <Form.Control
-              required={newInvoice}
+              required={creatingNewInvoice}
               name="billtoAddress1"
               placeholder={
-                newInvoice ? '12345 north street' : propsObject.billto.address
+                creatingNewInvoice
+                  ? '12345 north street'
+                  : previousInvoice.billto.address
+              }
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="billtoAddress2">
+            <Form.Label>Address 2</Form.Label>
+            <Form.Control
+              name="billtoAddress2"
+              placeholder={
+                creatingNewInvoice
+                  ? 'Apartment, studio, or floor'
+                  : previousInvoice.billto.address2
               }
             />
           </Form.Group>
         </Row>
 
-        <Form.Group className="mb-3" controlId="billtoAddress2">
-          <Form.Label>Address 2</Form.Label>
-          <Form.Control
-            name="billtoAddress2"
-            placeholder={
-              newInvoice
-                ? 'Apartment, studio, or floor'
-                : propsObject.billto.address2
-            }
-          />
-        </Form.Group>
-
         <Row className="mb-3">
           <Form.Group as={Col} controlId="billtoCity">
             <Form.Label>City</Form.Label>
             <Form.Control
-              required={newInvoice}
+              required={creatingNewInvoice}
               name="billtoCity"
               placeholder={
-                newInvoice ? 'Enter city' : propsObject.billto.billtoCity
+                creatingNewInvoice
+                  ? 'Enter city'
+                  : previousInvoice.billto.billtoCity
               }
             />
           </Form.Group>
@@ -184,10 +193,12 @@ function NewInvoiceForm(props) {
           <Form.Group as={Col} controlId="billtoState">
             <Form.Label>State</Form.Label>
             <Form.Control
-              required={newInvoice}
+              required={creatingNewInvoice}
               name="billtoState"
               placeholder={
-                newInvoice ? 'Enter State' : propsObject.billto.billtoState
+                creatingNewInvoice
+                  ? 'Enter State'
+                  : previousInvoice.billto.billtoState
               }
             ></Form.Control>
           </Form.Group>
@@ -195,10 +206,12 @@ function NewInvoiceForm(props) {
           <Form.Group as={Col} controlId="billtoZip">
             <Form.Label>Zip</Form.Label>
             <Form.Control
-              required={newInvoice}
+              required={creatingNewInvoice}
               name="billtoZip"
               placeholder={
-                newInvoice ? 'Enter Zip' : propsObject.billto.billtoZip
+                creatingNewInvoice
+                  ? 'Enter Zip'
+                  : previousInvoice.billto.billtoZip
               }
             />
           </Form.Group>
@@ -209,22 +222,24 @@ function NewInvoiceForm(props) {
           <Form.Group as={Col} controlId="invoiceDate">
             <Form.Label>Invoice Date</Form.Label>
             <Form.Control
-              required={newInvoice}
+              required={creatingNewInvoice}
               type="date"
               name="invoiceDate"
               placeholder="1990-10-10"
-              value={newInvoice ? invoiceDate : propsObject.dates.invoice}
+              value={
+                creatingNewInvoice ? invoiceDate : previousInvoice.dates.invoice
+              }
               onChange={(e) => setinvoiceDate(e.target.value)}
             />
           </Form.Group>
           <Form.Group as={Col} controlId="dueDate">
             <Form.Label>Due Date</Form.Label>
             <Form.Control
-              required={newInvoice}
+              required={creatingNewInvoice}
               type="date"
               name="dueDate"
               placeholder="1990-10-10"
-              value={newInvoice ? dueDate : propsObject.dates.due}
+              value={creatingNewInvoice ? dueDate : previousInvoice.dates.due}
               onChange={(e) => setdueDate(e.target.value)}
             />
           </Form.Group>
@@ -233,37 +248,42 @@ function NewInvoiceForm(props) {
           <Form.Group as={Col} controlId="product">
             <Form.Label>Product</Form.Label>
             <Form.Control
-              required={newInvoice}
+              required={creatingNewInvoice}
               name="product"
               type="product"
               placeholder={
-                newInvoice ? 'Enter Product' : propsObject.service.name
+                creatingNewInvoice
+                  ? 'Enter Product'
+                  : previousInvoice.service.name
               }
             />
           </Form.Group>
           <Form.Group as={Col} controlId="qty">
             <Form.Label>QTY</Form.Label>
             <Form.Control
-              required={newInvoice}
+              required={creatingNewInvoice}
               name="qty"
               type="number"
-              placeholder={newInvoice ? 'qty' : propsObject.service.quantity}
+              placeholder={
+                creatingNewInvoice ? 'qty' : previousInvoice.service.quantity
+              }
             />
           </Form.Group>
-        </Row>
-        <Row className="mb-3">
           <Form.Group as={Col} controlId="amount">
             <Form.Label>Amount</Form.Label>
             <Form.Control
-              required={newInvoice}
+              required={creatingNewInvoice}
               name="amount"
               type="number"
               placeholder={
-                newInvoice ? 'Enter Amount' : propsObject.service.amount
+                creatingNewInvoice
+                  ? 'Enter Amount'
+                  : previousInvoice.service.amount
               }
             />
           </Form.Group>
         </Row>
+
         <Button variant="primary" type="submit">
           Submit
         </Button>

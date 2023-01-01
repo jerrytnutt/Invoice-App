@@ -40,3 +40,15 @@ header {
   position: absolute;
   bottom: 0;
 }
+.imgContainer {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid red;
+}
+.profilePicture {
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 100%;
+  margin-right: 10px;
+}

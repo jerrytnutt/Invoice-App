@@ -1,10 +1,10 @@
 import '../../styles/header.css';
 import SignUpForm from './SignUpForm';
-import { sidebarVisibility } from '../../features/sidebarvisibility';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 import { RiAccountCircleLine } from 'react-icons/ri';
+import { sidebarVisibility } from '../../features/sidebarvisibility';
 import { userDataActions } from '../../features/userDataReducer';
 import { invoiceList } from '../../features/invoicelist';
 
@@ -15,6 +15,7 @@ function Header() {
   const visibility = useSelector((state) => state.sidebarvisibility.value);
 
   const userName = useSelector((state) => state.userData.value.userName);
+  const userImg = useSelector((state) => state.userData.value.userImg);
 
   const dispatch = useDispatch();
   const signOut = () => {
@@ -32,12 +33,15 @@ function Header() {
     <header>
       <div className="signInAndLogButtons">
         {userName ? (
-          <button onClick={signOut}>
-            <div>
-              <BsFillArrowRightSquareFill />
-            </div>
-            <p>Log Out</p>
-          </button>
+          <div className="imgContainer">
+            <img src={userImg} alt="" className="profilePicture"></img>
+            <button onClick={signOut}>
+              <div>
+                <BsFillArrowRightSquareFill />
+              </div>
+              <p>Log Out</p>
+            </button>
+          </div>
         ) : (
           <button
             onClick={() => {
@@ -61,7 +65,7 @@ function Header() {
         ) : null}
       </div>
 
-      {showSignInInput ? (
+      {showSignInInput && !userName ? (
         <SignUpForm setshowSignInInput={setshowSignInInput} />
       ) : null}
     </header>

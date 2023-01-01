@@ -1,34 +1,33 @@
-.topTitle {
-  color: black;
-}
-.formBackground {
+.backgroundCover {
+  position: absolute;
   z-index: 0;
   width: 100%;
   height: 100vh;
-
-  position: absolute;
-  top: 0;
-  left: 0;
   background-color: #000;
-  color: #aaa;
-  opacity: 0.4;
+  opacity: 0.6;
   filter: alpha(opacity=50);
 }
-.form {
+
+.SignUpform {
   z-index: 1;
   position: absolute;
   width: 50%;
+  max-width: 600px;
   top: 40%;
-  left: 55%;
+  left: 50%;
   margin-right: -50%;
   padding: 25px;
   transform: translate(-50%, -50%);
-
   background-color: rgb(245, 245, 245);
 }
-.mb-3 {
+.SignUpform h3 {
   color: black;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+}
+.mb-3,
+.topTitle {
+  color: black;
+  font-size: 1.4rem;
 }
 .form input {
   margin-top: 5px;
@@ -43,7 +42,7 @@
   top: 0;
   border: 0;
   font-size: 2rem;
-  color: grey;
+  color: rgb(65, 65, 65);
   background-color: rgb(245, 245, 245);
 }
 .closeButton:hover {

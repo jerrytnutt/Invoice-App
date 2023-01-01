@@ -4,8 +4,13 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userDataActions } from '../../features/userDataReducer';
-import { auth, createUser, signInUser } from '../../fireData/firebase-config';
-import { db } from '../../fireData/firebase-config';
+import {
+  auth,
+  db,
+  createUser,
+  signInUser,
+} from '../../fireData/firebase-config';
+
 import { doc, setDoc } from 'firebase/firestore';
 
 function SignInInput(props) {
@@ -14,7 +19,6 @@ function SignInInput(props) {
   const dispatch = useDispatch();
 
   const createNewAccount = (username, email, password) => {
-    console.log('u', username, 'e', email, 'p', password);
     createUser(auth, email, password)
       .then((userCredential) => {
         setDoc(doc(db, 'users', userCredential.user.uid), {
@@ -22,6 +26,7 @@ function SignInInput(props) {
           userData: {
             userName: username,
             userID: userCredential.user.uid,
+            userImg: '',
             companyName: '',
             companyAddress: '',
             companyEmail: '',
@@ -32,6 +37,7 @@ function SignInInput(props) {
           userDataActions.setUserData({
             userName: username,
             userID: userCredential.user.uid,
+            userImg: '',
             companyName: '',
             companyAddress: '',
             companyEmail: '',
@@ -63,31 +69,19 @@ function SignInInput(props) {
     let password = event.target[4].value;
     return createNewAccount(username, email, password);
   };
-  const UsernameInput = () => {
-    let content = (
-      <Form.Group className="mb-3" controlId="formBasicuserName">
-        <Form.Label className="topTitle">Create Account</Form.Label>
-        <br></br>
-        <Form.Label>Username</Form.Label>
-        <Form.Control
-          required
-          type="username"
-          placeholder="Username"
-          autoComplete="on"
-        />
-      </Form.Group>
-    );
-    return <div>{content}</div>;
+  const runDemoMode = () => {
+    console.log(6);
   };
-  // Same user name is allowed but same email is not.
+
   return (
-    <div>
-      <div className="formBackground"></div>
-      <Form className="form" onSubmit={handleSubmit}>
+    <>
+      <div className="backgroundCover"></div>
+      <Form className="SignUpform" onSubmit={handleSubmit}>
         <h3>Explore site's features in Demo mode</h3>
-        <Button variant="success" type="submit">
+        <Button variant="success" onClick={runDemoMode}>
           Demo
         </Button>
+        <br></br>
         <br></br>
         <button
           className="closeButton"
@@ -101,7 +95,17 @@ function SignInInput(props) {
         {returningUser ? (
           <Form.Label className="topTitle">Sign In</Form.Label>
         ) : (
-          <UsernameInput />
+          <Form.Group className="mb-3" controlId="formBasicuserName">
+            <Form.Label className="topTitle">Create Account</Form.Label>
+            <br></br>
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              required
+              type="username"
+              placeholder="Username"
+              autoComplete="on"
+            />
+          </Form.Group>
         )}
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -138,7 +142,7 @@ function SignInInput(props) {
           Submit
         </Button>
       </Form>
-    </div>
+    </>
   );
 }
 

@@ -1,6 +1,7 @@
 .sidebarVisible {
   flex-grow: 1;
   max-width: 200px;
+  height: 100vh;
   background-color: rgb(42, 42, 46);
   color: white;
 }
