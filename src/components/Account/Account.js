@@ -16,8 +16,6 @@ function Account() {
   const invoiceData = useSelector((state) => state);
 
   const updateUserInfo = async (data) => {
-    console.log(data);
-
     const newUserData = {
       userName: user.userName,
       userID: user.userID,
@@ -42,12 +40,12 @@ function Account() {
     <div className="outerPage">
       <div className="accountTabs">
         <div className="accountLeft">
-          <p>Company Name</p>
+          <p>Company</p>
         </div>
         <div className="accountRight">
-          <p>Company Name</p>
+          <p>Name</p>
 
-          <p>Company Address</p>
+          <p>Address</p>
         </div>
         <UserInfoDisplay
           editUserInfo={editUserInfo}

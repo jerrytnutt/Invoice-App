@@ -27,26 +27,26 @@ function FilterDropDown(props) {
     return sortData(newInvoice);
     //dispatch(invoiceList.setinvoiceData(newInvoice));
   };
-  const handleClick = () => {
-    let newInvoice = invoice.slice();
+  // const handleClick = () => {
+  // let newInvoice = invoice.slice();
 
-    newInvoice = newInvoice.sort((a, b) => a.invoicenumber - b.invoicenumber);
-    props.setfilterdArray(newInvoice);
-    //newInvoice.sort(compare(arg));
+  // newInvoice = newInvoice.sort((a, b) => a.invoicenumber - b.invoicenumber);
+  // props.setfilterdArray(newInvoice);
+  //newInvoice.sort(compare(arg));
 
-    //console.log(newInvoice);
-    // Do I need to update the db with the swap? no.
-    //const dataSwap = async () => {
-    //const dataRef = doc(db, 'users', userId);
+  //console.log(newInvoice);
+  // Do I need to update the db with the swap? no.
+  //const dataSwap = async () => {
+  //const dataRef = doc(db, 'users', userId);
 
-    //await updateDoc(dataRef, {
-    // Invoices: newInvoice,
-    // });
-    dispatch(invoiceList.setinvoiceData(newInvoice));
-    //};
+  //await updateDoc(dataRef, {
+  // Invoices: newInvoice,
+  // });
+  //dispatch(invoiceList.setinvoiceData(newInvoice));
+  //};
 
-    //return dataSwap();
-  };
+  //return dataSwap();
+  // };
   return (
     <Navbar variant="dark" bg="dark">
       <Container fluid>
@@ -62,7 +62,6 @@ function FilterDropDown(props) {
                 onClick={() => {
                   sortNumeric('amount');
                 }}
-                href="#action/3.1"
               >
                 Amount
               </NavDropdown.Item>
@@ -70,13 +69,10 @@ function FilterDropDown(props) {
                 onClick={() => {
                   sortNumeric('quantity');
                 }}
-                href="#action/3.2"
               >
                 Quantity
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3" onClick={handleClick}>
-                Name
-              </NavDropdown.Item>
+
               <NavDropdown.Divider />
             </NavDropdown>
           </Nav>

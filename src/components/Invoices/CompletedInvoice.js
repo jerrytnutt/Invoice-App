@@ -18,7 +18,15 @@ function CompletedInvoice(props) {
   const payment = invoiceData.paidStatus;
   let invoiceNumber = invoiceData.invoicenumber;
 
-  //console.log(payment);
+  const getTotal = (invoiceData) => {
+    let amount = invoiceData.service.amount * invoiceData.service.quantity;
+    console.log(amount);
+    let tax = amount * 0.06;
+    console.log(Math.floor(tax));
+    let total = amount + tax;
+    return total;
+  };
+  const total = getTotal(invoiceData);
   const dataSwap = async (newInvoiceList) => {
     const dataRef = doc(db, 'users', userId);
 
@@ -71,7 +79,7 @@ function CompletedInvoice(props) {
             }}
           >
             Edit
-          </Button>{' '}
+          </Button>
           <Button
             variant="danger"
             onClick={() => {
@@ -144,9 +152,7 @@ function CompletedInvoice(props) {
               <th>{invoiceData.service.name}</th>
               <th>{invoiceData.service.quantity}</th>
               <th>{invoiceData.service.amount}</th>
-              <th>
-                {invoiceData.service.amount * 0.06 + invoiceData.service.amount}
-              </th>
+              <th>${total}</th>
             </tr>
           </thead>
         </Table>

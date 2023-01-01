@@ -2,40 +2,34 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
   background-color: rgb(46, 46, 57);
-  border: 1px solid red;
-  height: 100vh;
   padding: 5px;
-
+  height: 100vh;
   width: 100%;
 }
 .accountTabs {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  border: 1px solid black;
+
   width: 80%;
-  background-color: rgb(56, 56, 77);
+
   padding: 10px;
   margin-bottom: 5px;
+
+  background-color: rgb(56, 56, 77);
 }
 .accountLeft {
   flex-grow: 2;
-  color: rgb(163, 130, 241);
-  font-size: 1.2rem;
+  color: white;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 .accountRight {
   flex-grow: 2;
-  color: rgb(111, 77, 189);
-
-  font-weight: 600;
+  color: white;
+  font-size: 1rem;
 }
 .accountFinal {
   flex-grow: 1;
-  border: 1px solid red;
-}
-.accountFinal input {
-  background-color: red;
 }
