@@ -1,10 +1,17 @@
 .footer {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-between;
-  color: white;
-  height: 50px;
-  width: 100vw;
 
-  background-color: green;
+  color: white;
+  height: 30px;
+  width: 100vw;
+  padding-bottom: 10px;
+  padding-right: 10px;
+
+  background-color: rgb(42, 42, 46);
+}
+.footer svg {
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
 }

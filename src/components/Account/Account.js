@@ -7,9 +7,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../fireData/firebase-config';
 import { userDataActions } from '../../features/userDataReducer';
+import Button from 'react-bootstrap/Button';
 
 function Account() {
-  const [editUserInfo, seteditUserInfo] = useState(false);
+  const [editUserInfo, seteditUserInfo] = useState(true);
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.userData.value);
@@ -37,29 +38,31 @@ function Account() {
   };
 
   return (
-    <div className="outerPage">
+    <div className="accountBackground">
       <div className="accountTabs">
         <div className="accountLeft">
           <p>Company</p>
+          <Button onClick={handleClick} variant="success" type="submit">
+            Edit
+          </Button>
         </div>
         <div className="accountRight">
-          <p>Name</p>
+          <div>
+            {' '}
+            <p>Name</p>
+            <p>Address</p>
+          </div>
 
-          <p>Address</p>
+          <UserInfoDisplay
+            editUserInfo={editUserInfo}
+            user={user}
+            updateUserInfo={updateUserInfo}
+          />
         </div>
-        <UserInfoDisplay
-          editUserInfo={editUserInfo}
-          user={user}
-          updateUserInfo={updateUserInfo}
-        />
       </div>
       <div className="accountTabs">
-        <div className="accountLeft">
-          <Progress invoiceData={invoiceData} />
-        </div>
-        <div className="accountRight"></div>
+        <Progress invoiceData={invoiceData} />
       </div>
-      <button onClick={handleClick}></button>
     </div>
   );
 }
