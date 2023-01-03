@@ -1,7 +1,7 @@
 import '../styles/main.css';
 import Header from './Header/Header';
 
-import Invoices from './Invoices/invoices';
+import Invoices from './Invoices/Invoices';
 import Account from './Account/Account';
 
 import { useEffect } from 'react';
@@ -50,7 +50,7 @@ function MainContent() {
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
-            // If the user account already exist get the data from ther and
+            // If the user account already exist get the data from the firestore and
             // add to state.
             dispatch(invoiceList.setinvoiceData(docSnap.data().Invoices));
             dispatch(userDataActions.setUserData(docSnap.data().userData));

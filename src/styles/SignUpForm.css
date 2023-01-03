@@ -20,22 +20,6 @@
   transform: translate(-50%, -50%);
   background-color: rgb(245, 245, 245);
 }
-.SignUpform h3 {
-  color: black;
-  font-size: 1.4rem;
-}
-.mb-3,
-.topTitle {
-  color: black;
-  font-size: 1.4rem;
-}
-.form input {
-  margin-top: 5px;
-  margin-bottom: 10px;
-}
-.errorMessage {
-  color: black;
-}
 .closeButton {
   position: absolute;
   right: 0;
@@ -48,4 +32,20 @@
 .closeButton:hover {
   color: black;
   cursor: pointer;
+}
+.SignUpform h3 {
+  color: black;
+  font-size: 1.4rem;
+}
+.mb-3,
+.signFormTitle {
+  color: black;
+  font-size: 1.4rem;
+}
+.form input {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.errorMessage {
+  color: black;
 }

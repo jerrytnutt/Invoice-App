@@ -26,6 +26,10 @@ function NewInvoiceForm(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    /*
+    This function will handle both adding new invoice and editing previous ones.
+
+    */
 
     const formData = new FormData(event.target);
     const formProps = Object.fromEntries(formData);
@@ -34,6 +38,11 @@ function NewInvoiceForm(props) {
     let paidStatus = false;
 
     if (!creatingNewInvoice) {
+      /*
+      If the user is editing a previous invoice add the invoiceNumber and Paidstatus.
+      Also add all form data that were not changed.
+
+      */
       invoiceNumber = previousInvoice.invoicenumber;
       paidStatus = previousInvoice.paidStatus;
 
@@ -77,6 +86,11 @@ function NewInvoiceForm(props) {
       copyInvoice[location] = creatingNewInvoiceObject;
     } else {
       copyInvoice = copyInvoice.concat([creatingNewInvoiceObject]);
+      /*
+       After adding a new invoice
+        resort the list by amount and re-enter each invoicenumber.
+
+      */
       copyInvoice = copyInvoice.sort(
         (a, b) =>
           parseFloat(a.service['amount']) - parseFloat(b.service['amount'])
@@ -89,6 +103,7 @@ function NewInvoiceForm(props) {
       });
     }
 
+    // update firestore and state
     const dataRef = doc(db, 'users', userId);
 
     await updateDoc(dataRef, {

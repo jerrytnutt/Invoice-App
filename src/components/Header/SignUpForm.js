@@ -13,12 +13,14 @@ import {
 
 import { doc, setDoc } from 'firebase/firestore';
 
-function SignInInput(props) {
+function SignUpForm(props) {
   const [errorMessage, seterrorMessage] = useState(null);
   const [returningUser, setreturningUser] = useState(true);
   const dispatch = useDispatch();
 
   const createNewAccount = (username, email, password) => {
+    // If user creates new account set up their documents in the firestore database
+    // and set up user information in redux state.
     createUser(auth, email, password)
       .then((userCredential) => {
         setDoc(doc(db, 'users', userCredential.user.uid), {
@@ -45,7 +47,7 @@ function SignInInput(props) {
         props.setshowSignInInput(false);
       })
       .catch((error) => {
-        // error
+        // error message will appear on screen for user
         seterrorMessage(error.message);
       });
   };
@@ -59,9 +61,9 @@ function SignInInput(props) {
       return signInUser(auth, email, password)
         .then((userCredential) => {
           props.setshowSignInInput(false);
-          // ...
         })
         .catch((error) => {
+          // error message will appear on screen for user
           seterrorMessage(error.message);
         });
     }
@@ -95,10 +97,10 @@ function SignInInput(props) {
         </button>
         {errorMessage ? <p className="errorMessage">{errorMessage}</p> : null}
         {returningUser ? (
-          <Form.Label className="topTitle">Sign In</Form.Label>
+          <Form.Label className="signFormTitle">Sign In</Form.Label>
         ) : (
           <Form.Group className="mb-3" controlId="formBasicuserName">
-            <Form.Label className="topTitle">Create Account</Form.Label>
+            <Form.Label className="signFormTitle">Create Account</Form.Label>
             <br></br>
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -148,4 +150,4 @@ function SignInInput(props) {
   );
 }
 
-export default SignInInput;
+export default SignUpForm;

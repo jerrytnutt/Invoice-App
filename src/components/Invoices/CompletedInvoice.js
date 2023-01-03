@@ -20,11 +20,11 @@ function CompletedInvoice(props) {
 
   const getTotal = (invoiceData) => {
     let amount = invoiceData.service.amount * invoiceData.service.quantity;
-    console.log(amount);
+
     let tax = amount * 0.06;
-    console.log(Math.floor(tax));
-    let total = amount + tax;
-    return total;
+
+    amount = amount + tax;
+    return amount;
   };
   const total = getTotal(invoiceData);
   const dataSwap = async (newInvoiceList) => {
@@ -37,6 +37,10 @@ function CompletedInvoice(props) {
   };
 
   const deleteElement = (id) => {
+    /*
+    Change the invoicenumber of each element not being deleted, then splice out the
+    element to be deleted.
+    */
     let newInvoiceList = invoice.map((item) => {
       if (item.invoicenumber > id) {
         let invoicenumber = item.invoicenumber - 1;
@@ -69,6 +73,9 @@ function CompletedInvoice(props) {
     <div className="outer">
       <header>
         <div>
+          {/*
+          Clicking the edit button will open the NewInvoiceForm to edit Invoice.
+  */}
           <Button
             variant="primary"
             onClick={() => {
@@ -95,7 +102,11 @@ function CompletedInvoice(props) {
           <Button
             variant="warning"
             onClick={() => {
-              return changepaidStatus(invoiceNumber);
+              changepaidStatus(invoiceNumber);
+              return props.setinvoiceContent({
+                type: null,
+                data: {},
+              });
             }}
           >
             Mark as {payment ? 'Unpaid' : 'Paid'}
@@ -145,7 +156,7 @@ function CompletedInvoice(props) {
             <tr>
               <th>Description</th>
               <th>Quantity</th>
-              <th>Cost</th>
+              <th>Amount</th>
               <th>Total</th>
             </tr>
             <tr>

@@ -26,15 +26,14 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .topLabel {
-  color: rgb(163, 130, 241);
   font-size: 1.2rem;
   font-weight: 600;
+  color: rgb(163, 130, 241);
 }
 label {
-  color: rgb(175, 170, 188);
-
   font-weight: 600;
   margin: 5px;
+  color: rgb(175, 170, 188);
 }
 .form-label {
   font-size: 1.2rem;
