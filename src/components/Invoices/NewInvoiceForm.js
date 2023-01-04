@@ -103,7 +103,7 @@ function NewInvoiceForm(props) {
       });
     }
 
-    // update firestore and state
+    // update firestore
     const dataRef = doc(db, 'users', userId);
 
     await updateDoc(dataRef, {

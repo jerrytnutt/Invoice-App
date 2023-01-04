@@ -10,7 +10,7 @@ function AccountPageInput(props) {
 
     const formData = new FormData(event.target);
     const formProps = Object.fromEntries(formData);
-
+    props.seteditUserInfo(false);
     props.updateUserInfo(formProps);
   };
 

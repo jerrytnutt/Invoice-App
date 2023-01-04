@@ -7,10 +7,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../fireData/firebase-config';
 import { userDataActions } from '../../features/userDataReducer';
-import Button from 'react-bootstrap/Button';
 
 function Account() {
-  const [editUserInfo, seteditUserInfo] = useState(true);
+  const [editUserInfo, seteditUserInfo] = useState(false);
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.userData.value);
@@ -33,18 +32,12 @@ function Account() {
     dispatch(userDataActions.setUserData(newUserData));
     seteditUserInfo(false);
   };
-  const handleClick = () => {
-    return seteditUserInfo(!editUserInfo);
-  };
 
   return (
     <div className="accountBackground">
       <div className="accountTabs">
         <div className="accountLeft">
-          <p>Company</p>
-          <Button onClick={handleClick} variant="success" type="submit">
-            Edit
-          </Button>
+          <p>Company Information</p>
         </div>
         <div className="accountRight">
           <div>
@@ -57,6 +50,7 @@ function Account() {
             editUserInfo={editUserInfo}
             user={user}
             updateUserInfo={updateUserInfo}
+            seteditUserInfo={seteditUserInfo}
           />
         </div>
       </div>

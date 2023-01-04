@@ -1,7 +1,7 @@
 import '../styles/main.css';
 import Header from './Header/Header';
 
-import Invoices from './Invoices/Invoices';
+import Invoices from './Invoices/invoices';
 import Account from './Account/Account';
 
 import { useEffect } from 'react';
