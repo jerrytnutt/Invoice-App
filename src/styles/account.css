@@ -35,3 +35,6 @@
 .accountFinal {
   flex-grow: 1;
 }
+.progressTitle {
+  color: white;
+}

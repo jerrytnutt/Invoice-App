@@ -10,15 +10,14 @@ function FilterDropDown(props) {
   const dispatch = useDispatch();
   const invoice = useSelector((state) => state.invoiceList.value);
   const [greatestValueTop, setgreatestValueTop] = useState(false);
-  console.log(greatestValueTop);
-  const sortData = (newInvoice) => {
-    let i = 1;
-    newInvoice = newInvoice.map((item) => {
-      let invoicenumber = i;
-      i = i + 1;
-      return { ...item, invoicenumber };
-    });
 
+  const filterList = () => {
+    let newInvoice = invoice.slice();
+    // Keep items that have not been paid
+
+    newInvoice = newInvoice.filter((item) => {
+      return item.paidStatus === false;
+    });
     dispatch(invoiceList.setinvoiceData(newInvoice));
   };
   const sortNumeric = (arg) => {
@@ -30,7 +29,8 @@ function FilterDropDown(props) {
       newInvoice.reverse();
     }
 
-    return sortData(newInvoice);
+    // return sortData(newInvoice);
+    dispatch(invoiceList.setinvoiceData(newInvoice));
   };
 
   return (
@@ -83,6 +83,17 @@ function FilterDropDown(props) {
               >
                 Lowest
               </NavDropdown.Item>
+
+              <NavDropdown.Divider />
+            </NavDropdown>
+          </Nav>
+          <Nav>
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Filter"
+              menuVariant="dark"
+            >
+              <NavDropdown.Item onClick={filterList}>Not Paid</NavDropdown.Item>
 
               <NavDropdown.Divider />
             </NavDropdown>

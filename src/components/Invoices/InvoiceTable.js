@@ -16,10 +16,8 @@ function InvoiceTable(props) {
       {invoiceList.map((element, index) => (
         <tbody key={index}>
           <tr>
-            <td>#{element.invoicenumber}</td>
             <td>Due: {element.dates.due}</td>
             <td>{element.customer.name}</td>
-            <td>q: {element.service.quantity}</td>
             <td>${element.service.amount}</td>
             <td data={JSON.stringify(element)} id="dataTd">
               <BsFillArrowRightCircleFill

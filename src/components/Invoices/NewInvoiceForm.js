@@ -5,8 +5,9 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { invoiceList } from '../../features/invoicelist';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../fireData/firebase-config';
 
 function NewInvoiceForm(props) {
@@ -30,7 +31,7 @@ function NewInvoiceForm(props) {
     This function will handle both adding new invoice and editing previous ones.
 
     */
-
+    let copyInvoice = [...invoice];
     const formData = new FormData(event.target);
     const formProps = Object.fromEntries(formData);
 
@@ -78,44 +79,61 @@ function NewInvoiceForm(props) {
       paidStatus: paidStatus,
     };
 
-    let copyInvoice = invoice.slice();
+    console.log(copyInvoice);
 
-    if (!creatingNewInvoice) {
-      const location = previousInvoice.invoicenumber - 1;
+    const updateData = async () => {
+      const dataRef = doc(db, 'users', userId);
 
-      copyInvoice[location] = creatingNewInvoiceObject;
-    } else {
-      copyInvoice = copyInvoice.concat([creatingNewInvoiceObject]);
-      /*
-       After adding a new invoice
-        resort the list by amount and re-enter each invoicenumber.
-
-      */
-      copyInvoice = copyInvoice.sort(
-        (a, b) =>
-          parseFloat(a.service['amount']) - parseFloat(b.service['amount'])
-      );
-      let i = 1;
-      copyInvoice = copyInvoice.map((item) => {
-        let invoicenumber = i;
-        i = i + 1;
-        return { ...item, invoicenumber };
+      await updateDoc(dataRef, {
+        Invoices: copyInvoice,
       });
-    }
+
+      dispatch(invoiceList.setinvoiceData(copyInvoice));
+
+      props.setinvoiceContent({
+        type: null,
+        data: {},
+      });
+    };
+
+    const getDataForUser = async () => {
+      const docRef = doc(db, 'users', userId);
+      const docSnap = await getDoc(docRef);
+
+      let savedInvoice = docSnap.data().Invoices;
+
+      if (savedInvoice.length > copyInvoice.length) {
+        copyInvoice = savedInvoice;
+      }
+
+      if (!creatingNewInvoice) {
+        const index = copyInvoice
+          .map((e) => e.invoicenumber)
+          .indexOf(previousInvoice.invoicenumber);
+        //console.log(index);
+        // const location = previousInvoice.invoicenumber - 1;
+
+        copyInvoice[index] = creatingNewInvoiceObject;
+        console.log(copyInvoice);
+      } else {
+        copyInvoice = copyInvoice.concat([creatingNewInvoiceObject]);
+        /*
+         After adding a new invoice
+          resort the list by amount and re-enter each invoicenumber.
+  
+        */
+        copyInvoice = copyInvoice.sort(
+          (a, b) =>
+            parseFloat(a.service['amount']) - parseFloat(b.service['amount'])
+        );
+      }
+
+      updateData();
+    };
+
+    getDataForUser();
 
     // update firestore
-    const dataRef = doc(db, 'users', userId);
-
-    await updateDoc(dataRef, {
-      Invoices: copyInvoice,
-    });
-
-    dispatch(invoiceList.setinvoiceData(copyInvoice));
-
-    props.setinvoiceContent({
-      type: null,
-      data: {},
-    });
   };
 
   return (
