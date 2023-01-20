@@ -13,7 +13,12 @@ function Progress(props) {
     return item;
   });
 
-  const percent = Math.floor((paid / total) * 100);
+  let percent;
+  if (invoiceList.length === 0) {
+    percent = 0;
+  } else {
+    percent = Math.floor((paid / total) * 100);
+  }
 
   return (
     <div>

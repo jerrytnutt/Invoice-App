@@ -110,18 +110,12 @@ function NewInvoiceForm(props) {
         const index = copyInvoice
           .map((e) => e.invoicenumber)
           .indexOf(previousInvoice.invoicenumber);
-        //console.log(index);
-        // const location = previousInvoice.invoicenumber - 1;
 
         copyInvoice[index] = creatingNewInvoiceObject;
         console.log(copyInvoice);
       } else {
         copyInvoice = copyInvoice.concat([creatingNewInvoiceObject]);
-        /*
-         After adding a new invoice
-          resort the list by amount and re-enter each invoicenumber.
-  
-        */
+
         copyInvoice = copyInvoice.sort(
           (a, b) =>
             parseFloat(a.service['amount']) - parseFloat(b.service['amount'])

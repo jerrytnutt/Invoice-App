@@ -74,7 +74,14 @@ function SignUpForm(props) {
     return createNewAccount(username, email, password);
   };
   const runDemoMode = () => {
-    console.log(6);
+    return signInUser(auth, 'demoaccount@website.com', 'demopassword161')
+      .then((userCredential) => {
+        props.setshowSignInInput(false);
+      })
+      .catch((error) => {
+        // error message will appear on screen for user
+        seterrorMessage(error.message);
+      });
   };
 
   return (
