@@ -154,8 +154,8 @@ function CompletedInvoice(props) {
         <Table className="table1" striped bordered hover variant="dark">
           <thead>
             <tr>
-              <th>Description</th>
-              <th>Quantity</th>
+              <th>Product</th>
+              <th>Qty</th>
               <th>Amount</th>
               <th>Total</th>
             </tr>

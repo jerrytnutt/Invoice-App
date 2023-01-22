@@ -6,20 +6,21 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { invoiceList } from '../../features/invoicelist';
 
-function FilterDropDown(props) {
+function FilterDropDown() {
   const dispatch = useDispatch();
   const invoice = useSelector((state) => state.invoiceList.value);
+  // Numeric sorted values can have greatest values at top or bottom
   const [greatestValueTop, setgreatestValueTop] = useState(false);
 
   const filterList = () => {
     let newInvoice = invoice.slice();
-    // Keep items that have not been paid
 
     newInvoice = newInvoice.filter((item) => {
       return item.paidStatus === false;
     });
     dispatch(invoiceList.setinvoiceData(newInvoice));
   };
+
   const sortNumeric = (arg) => {
     let newInvoice = invoice.slice();
     newInvoice = newInvoice.sort(
@@ -29,7 +30,6 @@ function FilterDropDown(props) {
       newInvoice.reverse();
     }
 
-    // return sortData(newInvoice);
     dispatch(invoiceList.setinvoiceData(newInvoice));
   };
 

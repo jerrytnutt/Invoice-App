@@ -10,6 +10,7 @@
 .invoiceHeader {
   display: flex;
   justify-content: space-between;
+
   width: 80%;
   padding: 5px;
 }
@@ -51,4 +52,8 @@ td {
 #set {
   color: white;
   cursor: pointer;
+}
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
 }

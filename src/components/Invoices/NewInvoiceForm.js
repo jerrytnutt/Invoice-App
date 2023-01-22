@@ -41,7 +41,7 @@ function NewInvoiceForm(props) {
     if (!creatingNewInvoice) {
       /*
       If the user is editing a previous invoice add the invoiceNumber and Paidstatus.
-      Also add all form data that were not changed.
+      Also add all form data that was not changed.
 
       */
       invoiceNumber = previousInvoice.invoicenumber;
@@ -79,9 +79,7 @@ function NewInvoiceForm(props) {
       paidStatus: paidStatus,
     };
 
-    console.log(copyInvoice);
-
-    const updateData = async () => {
+    const updateInvoiceData = async () => {
       const dataRef = doc(db, 'users', userId);
 
       await updateDoc(dataRef, {
@@ -96,23 +94,24 @@ function NewInvoiceForm(props) {
       });
     };
 
-    const getDataForUser = async () => {
+    const createNewInvoiceList = async () => {
       const docRef = doc(db, 'users', userId);
       const docSnap = await getDoc(docRef);
 
       let savedInvoice = docSnap.data().Invoices;
 
+      // If the invoice List was filterd get the nonfilterd invoice List from firebase.
+
       if (savedInvoice.length > copyInvoice.length) {
         copyInvoice = savedInvoice;
       }
-
+      // If you are editing a previous invoice search for it by its invoice number
       if (!creatingNewInvoice) {
         const index = copyInvoice
           .map((e) => e.invoicenumber)
           .indexOf(previousInvoice.invoicenumber);
 
         copyInvoice[index] = creatingNewInvoiceObject;
-        console.log(copyInvoice);
       } else {
         copyInvoice = copyInvoice.concat([creatingNewInvoiceObject]);
 
@@ -122,12 +121,10 @@ function NewInvoiceForm(props) {
         );
       }
 
-      updateData();
+      updateInvoiceData();
     };
 
-    getDataForUser();
-
-    // update firestore
+    createNewInvoiceList();
   };
 
   return (
